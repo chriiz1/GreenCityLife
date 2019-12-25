@@ -1,0 +1,131 @@
+{
+  "project_info": {
+    "project_number": "423677995195",
+    "firebase_url": "https://greencitylife-ed3b5.firebaseio.com",
+    "project_id": "greencitylife-ed3b5",
+    "storage_bucket": "greencitylife-ed3b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423677995195:android:b48393134bd137bd2ca19e",
+        "android_client_info": {
+          "package_name": "com.example.greencitylife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423677995195-tivemmq3rnrv6kn8apvjn2i9oi0u21lq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.greencitylife",
+            "certificate_hash": "d6efc4b6ffb38eccc5f6b67b1884681088179e31"
+          }
+        },
+        {
+          "client_id": "423677995195-vsiskf28ughet1jfeb3hv2daf7925v1m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYX0hSwr3ezn6xdoc9G8kpQF4-qFp4pvo"
+        },
+        {
+          "current_key": "AIzaSyAvUkDscDGet7fyOf9u_xBWVQUUbbyRPcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423677995195-vsiskf28ughet1jfeb3hv2daf7925v1m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423677995195:android:defc5246561f8ea92ca19e",
+        "android_client_info": {
+          "package_name": "com.example.hllwrld"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423677995195-5n5jl624gsl04cjie2muothf1ff3d2kh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hllwrld",
+            "certificate_hash": "d6efc4b6ffb38eccc5f6b67b1884681088179e31"
+          }
+        },
+        {
+          "client_id": "423677995195-vsiskf28ughet1jfeb3hv2daf7925v1m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYX0hSwr3ezn6xdoc9G8kpQF4-qFp4pvo"
+        },
+        {
+          "current_key": "AIzaSyAvUkDscDGet7fyOf9u_xBWVQUUbbyRPcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423677995195-vsiskf28ughet1jfeb3hv2daf7925v1m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423677995195:android:aba7f7ae1d93ca8c2ca19e",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423677995195-tac75q26bvj2roa9fhjmpalu46doog9e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "d6efc4b6ffb38eccc5f6b67b1884681088179e31"
+          }
+        },
+        {
+          "client_id": "423677995195-vsiskf28ughet1jfeb3hv2daf7925v1m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYX0hSwr3ezn6xdoc9G8kpQF4-qFp4pvo"
+        },
+        {
+          "current_key": "AIzaSyAvUkDscDGet7fyOf9u_xBWVQUUbbyRPcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423677995195-vsiskf28ughet1jfeb3hv2daf7925v1m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
