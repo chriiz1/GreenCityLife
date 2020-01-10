@@ -1,7 +1,10 @@
 package com.example.greencitylife
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.GlobalScope
@@ -22,9 +25,25 @@ class MainActivity : AppCompatActivity() {
         //saveData()
         readData()
     }
+
+    fun openRegistration(view: View) {
+        val intent = Intent(this, registration::class.java).apply{}
+        startActivity(intent)
+    }
+
+    fun openRegistration2(view: View) {
+        val intent = Intent(this, Registration2::class.java).apply{}
+        startActivity(intent)
+    }
+
+    fun dbExamples(view: View) {
+        val intent = Intent(this, DbExamples::class.java).apply{}
+        startActivity(intent)
+    }
+
 }
 
-// reified means that the Type T also is available at runtime and not only at compile time. Necessary for ...toObject()
+// reified means that the Type T also is available at runtime and not only at compile time. Necessary for document.toObject()
 suspend inline fun <reified T: Any> getData(query: Query): List<T?> {
     val objList = mutableListOf<T?>()
     val snapshot = query.get().await()
@@ -37,7 +56,7 @@ suspend inline fun <reified T: Any> getData(query: Query): List<T?> {
 
 fun readData(){
     // launch starts a coroutine. This is necessary because the reading of data from firestore happens asynchronous.
-    // In this case the execution makes a break at [...].await() and continues at this point when all data is loaded
+    // In this case the execution makes a break at query.get().await() and continues at this point when all data is loaded
     // In the while the execution continues at the next function
     GlobalScope.launch {
         val allUsersFromAttemsgarten = getData<User>(userRef.whereEqualTo("gardenId", "Attemsgarten"))
