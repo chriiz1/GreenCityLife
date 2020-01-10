@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GreenCityLife</string>
+    <string name="facebook_application_id" translatable="false">3655873797756859</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb3655873797756859</string>
 </resources>
