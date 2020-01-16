@@ -1,17 +1,23 @@
 package com.example.greencitylife
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_registration2.*
 
-class Registration2 : AppCompatActivity(), View.OnClickListener{
+const val MESSAGE = "com.example.myfirstapp.MESSAGE"
 
+
+class Registration2 : AppCompatActivity(), View.OnClickListener{
     private val TAG = "FirebaseEmailPassword"
 
     private var mAuth: FirebaseAuth? = null
@@ -24,7 +30,7 @@ class Registration2 : AppCompatActivity(), View.OnClickListener{
         btn_email_create_account.setOnClickListener(this)
         btn_sign_out.setOnClickListener(this)
         btn_verify_email.setOnClickListener(this)
-
+        btn_forgot_password.setOnClickListener(this)
         mAuth = FirebaseAuth.getInstance()
     }
 
@@ -32,7 +38,6 @@ class Registration2 : AppCompatActivity(), View.OnClickListener{
         super.onStart()
 
         val currentUser = mAuth!!.currentUser
-        updateUI(currentUser)
     }
 
     override fun onClick(view: View?) {
@@ -42,10 +47,10 @@ class Registration2 : AppCompatActivity(), View.OnClickListener{
             createAccount(edtEmail.text.toString(), edtPassword.text.toString())
         } else if (i == R.id.btn_email_sign_in) {
             signIn(edtEmail.text.toString(), edtPassword.text.toString())
-        } else if (i == R.id.btn_sign_out) {
-            signOut()
         } else if (i == R.id.btn_verify_email) {
             sendEmailVerification()
+        } else if (i == R.id.btn_forgot_password) {
+            startActivity(Intent(applicationContext, resetPassword::class.java))
         }
     }
 
@@ -54,19 +59,21 @@ class Registration2 : AppCompatActivity(), View.OnClickListener{
         if (!validateForm(email, password)) {
             return
         }
-
+        progressBar1.visibility = View.VISIBLE
+        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        edtEmail.clearFocus()
+        edtPassword.clearFocus()
         mAuth!!.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
+                progressBar1.visibility = View.GONE
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 if (task.isSuccessful) {
                     Log.e(TAG, "createAccount: Success!")
 
-                    // update UI with the signed-in user's information
-                    val user = mAuth!!.currentUser
-                    updateUI(user)
+                    sendEmailVerification()
                 } else {
                     Log.e(TAG, "createAccount: Fail!", task.exception)
                     Toast.makeText(applicationContext, "Authentication failed!", Toast.LENGTH_SHORT).show()
-                    updateUI(null)
                 }
             }
     }
@@ -81,25 +88,17 @@ class Registration2 : AppCompatActivity(), View.OnClickListener{
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.e(TAG, "signIn: Success!")
-
-                    // update UI with the signed-in user's information
-                    val user = mAuth!!.getCurrentUser()
-                    updateUI(user)
+//                    val intent = Intent(this, MainActivity::class.java).apply{}
+//                    startActivity(intent)
+                    finish()
                 } else {
                     Log.e(TAG, "signIn: Fail!", task.exception)
                     Toast.makeText(applicationContext, "Authentication failed!", Toast.LENGTH_SHORT).show()
-                    updateUI(null)
                 }
 
                 if (!task.isSuccessful) {
-                    tvStatus.text = "Authentication failed!"
-                }
+                    Toast.makeText(applicationContext, "Authentication failed!", Toast.LENGTH_SHORT).show()                }
             }
-    }
-
-    private fun signOut() {
-        mAuth!!.signOut()
-        updateUI(null)
     }
 
     private fun sendEmailVerification() {
@@ -119,6 +118,8 @@ class Registration2 : AppCompatActivity(), View.OnClickListener{
                     Toast.makeText(applicationContext, "Failed to send verification email.", Toast.LENGTH_SHORT).show()
                 }
             }
+        val intent = Intent(this, VerifyEmail::class.java).apply{putExtra(MESSAGE, user.email)}
+        startActivity(intent)
     }
 
     private fun validateForm(email: String, password: String): Boolean {
@@ -139,28 +140,6 @@ class Registration2 : AppCompatActivity(), View.OnClickListener{
         }
 
         return true
-    }
-
-    private fun updateUI(user: FirebaseUser?) {
-
-        if (user != null) {
-            tvStatus.text = "User Email: " + user.email + "(verified: " + user.isEmailVerified + ")"
-            tvDetail.text = "Firebase User ID: " + user.uid
-
-            email_password_buttons.visibility = View.GONE
-            email_password_fields.visibility = View.GONE
-            layout_signed_in_buttons.visibility = View.VISIBLE
-
-            btn_verify_email.isEnabled = !user.isEmailVerified
-        }
-        else {
-            tvStatus.text = "Signed Out"
-            tvDetail.text = null
-
-            email_password_buttons.visibility = View.VISIBLE
-            email_password_fields.visibility = View.VISIBLE
-            layout_signed_in_buttons.visibility = View.GONE
-        }
     }
 
 }
