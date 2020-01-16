@@ -23,7 +23,10 @@ class DbExamples : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth!!.currentUser
-        txtUser.text = currentUser!!.uid
+        if (currentUser != null)
+            txtUser.text = currentUser!!.uid
+        else
+            txtUser.text = "no User logged in!"
         val items = mutableListOf<String>()
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, items)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
