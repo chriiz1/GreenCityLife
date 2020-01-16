@@ -4,9 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -17,13 +18,22 @@ val myDB = FirebaseFirestore.getInstance()
 val userRef = myDB.collection("Users")
 val gardenRef = myDB.collection("Gardens")
 val entryRef = myDB.collection("Entries")
+private var mAuth: FirebaseAuth? = null
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //saveData()
-        readData()
+        //readData()
+        mAuth = FirebaseAuth.getInstance()
+        if (mAuth!!.currentUser != null)
+            mAuth!!.signOut()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateAuthInfo()
     }
 
     fun openRegistration(view: View) {
@@ -41,7 +51,30 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun updateAuthInfo(){
+        val currentUser = mAuth!!.currentUser
+        val b = a_main_btn_authentication
+        a_main_btn_authentication.setOnClickListener(null)
+        if(currentUser == null) {
+            a_main_tv_authStatus.text = ""
+            a_main_btn_authentication.text = "login/sign-up"
+            a_main_btn_authentication.setOnClickListener{
+                val intent = Intent(this, Registration2::class.java).apply{}
+                startActivity(intent)
+            }
+        }
+        else {
+            a_main_tv_authStatus.text = "Hello, ${currentUser!!.email}"
+            a_main_btn_authentication.text = "logout"
+            a_main_btn_authentication.setOnClickListener{
+                mAuth!!.signOut()
+                updateAuthInfo()
+            }
+        }
+    }
 }
+
+
 
 // reified means that the Type T also is available at runtime and not only at compile time. Necessary for document.toObject()
 suspend inline fun <reified T: Any> getData(query: Query): List<T?> {
