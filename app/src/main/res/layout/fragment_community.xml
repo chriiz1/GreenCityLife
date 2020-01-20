@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Community">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <fragment
+            android:id="@+id/navbar"
+            android:name="com.example.greencitylife.NavBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <fragment
+            android:id="@+id/fragment5"
+            android:name="com.example.greencitylife.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            tools:layout_editor_absoluteY="712dp">
+
+            <ImageButton
+                android:id="@+id/add_entry_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="bottom"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:src="@drawable/ic_add_circle_black_24dp" />
+
+
+        </fragment>
+
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

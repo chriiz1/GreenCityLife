@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".NavBar">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/myGarden_button"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/button_navbar"
+            android:text="@string/mygarden_button_text" />
+
+
+        <Button
+            android:id="@+id/community_button"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/button_navbar"
+            android:layout_weight="1"
+            android:text="@string/community_button_text" />
+
+        <Button
+            android:id="@+id/market_button"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/button_navbar"
+            android:layout_weight="1"
+            android:text="@string/garden_button_text"
+            />
+
+
+    </LinearLayout>
+
+</FrameLayout>

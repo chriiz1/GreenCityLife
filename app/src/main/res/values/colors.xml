@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#00BCD4</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="button_navbar">#00BCD4</color>
+    <color name="button_market">#F5F0EF</color>
+    <color name="button_market_clicked">#C0C0C0</color>
+    <color name="normal_text_black">#000000</color>
 </resources>

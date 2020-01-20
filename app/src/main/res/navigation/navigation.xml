@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/community">
+
+    <fragment
+        android:id="@+id/community"
+        android:name="com.example.greencitylife.Community"
+        android:label="fragment_community"
+        tools:layout="@layout/fragment_community" />
+    <fragment
+        android:id="@+id/market"
+        android:name="com.example.greencitylife.market"
+        android:label="fragment_market"
+        tools:layout="@layout/fragment_market" />
+    <fragment
+        android:id="@+id/mygarden"
+        android:name="com.example.greencitylife.mygarden"
+        android:label="fragment_mygarden"
+        tools:layout="@layout/fragment_mygarden" />
+    <fragment
+        android:id="@+id/market_search"
+        android:name="com.example.greencitylife.market_search"
+        android:label="fragment_market_search"
+        tools:layout="@layout/fragment_market_search" />
+    <fragment
+        android:id="@+id/market_add"
+        android:name="com.example.greencitylife.market_add"
+        android:label="fragment_market_add"
+        tools:layout="@layout/fragment_market_add" />
+</navigation>

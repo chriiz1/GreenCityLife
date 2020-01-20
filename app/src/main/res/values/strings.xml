@@ -2,4 +2,11 @@
     <string name="app_name">GreenCityLife</string>
     <string name="facebook_application_id" translatable="false">3655873797756859</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb3655873797756859</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="garden_button_text">Market</string>
+    <string name="community_button_text">Community</string>
+    <string name="mygarden_button_text">My Garden</string>
 </resources>
