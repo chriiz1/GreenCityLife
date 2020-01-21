@@ -27,14 +27,20 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // Inflate the layout for this fragment
         var rootView = inflater.inflate(R.layout.fragment_map, container, false)
 
-            val mapFrag: SupportMapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-            mapFrag.getMapAsync(this)
+        val mapFrag: SupportMapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapFrag.getMapAsync(this)
 
         return rootView
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
+        // initialize map
         mMap = googleMap
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        // add my location layer
+        // add zoom settings
+        val guiSettings = mMap.getUiSettings()
+        guiSettings.setZoomControlsEnabled(true)
         // Add a marker in Sydney and move the camera
         val Graz = LatLng(47.0, 15.26)
         val Attemsgarten = LatLng(47.07816, 15.44532)
@@ -47,8 +53,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mMap.addMarker(MarkerOptions().position(Gartenlabor).title("Gartenlabor"))
         mMap.addMarker(MarkerOptions().position(Verein_Seed).title("Verein Seed"))
         mMap.addMarker(MarkerOptions().position(Gartenzwerge_Geidorf).title("Gardenzwerge Geidorf"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Attemsgarten, 14f))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Attemsgarten, 13f))
+
+
     }
+
+
+
 
 }
 

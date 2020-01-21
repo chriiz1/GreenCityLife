@@ -34,7 +34,7 @@
             android:layout_weight="1"
             android:background="@color/button_market"
             android:padding="20dp"
-            android:src="@drawable/ic_search_black_24dp" />
+            android:src="@drawable/ic_search_black_35dp" />
 
         <ImageButton
             android:id="@+id/offer_button"
@@ -43,7 +43,7 @@
             android:layout_weight="1"
             android:background="@color/button_market"
             android:padding="20dp"
-            android:src="@drawable/ic_add_circle_black_24dp" />
+            android:src="@drawable/ic_add_circle_black_35dp" />
 
 
     </LinearLayout>

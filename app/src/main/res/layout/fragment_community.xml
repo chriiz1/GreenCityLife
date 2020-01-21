@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-
         <fragment
             android:id="@+id/fragment5"
             android:name="com.example.greencitylife.MapFragment"
@@ -26,19 +25,38 @@
             android:layout_gravity="bottom"
             tools:layout_editor_absoluteY="712dp">
 
-            <ImageButton
-                android:id="@+id/add_entry_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:gravity="bottom"
-                android:paddingLeft="10dp"
-                android:paddingBottom="10dp"
-                android:src="@drawable/ic_add_circle_black_24dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/add_entry_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="bottom"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:src="@drawable/ic_add_circle_black_48dp" />
+
+                <ImageButton
+                    android:id="@+id/search_entry_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="bottom"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:src="@drawable/ic_search_black_48dp" />
+
+            </LinearLayout>
+
 
 
         </fragment>
-
 
 
     </LinearLayout>
