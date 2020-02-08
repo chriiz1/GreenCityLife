@@ -1,8 +1,6 @@
 package com.example.greencitylife
 
 
-import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -40,19 +38,7 @@ class Community : Fragment() {
             it.findNavController().navigate(R.id.market_search)
         }
 
-        val auth_button = view.findViewById<Button>(R.id.a_main_btn_authentication2)
-
-        val this_context = container!!.context
-
-        auth_button.setOnClickListener{openRegistration(this_context)}
-
         return view
 
-
-    }
-
-    fun openRegistration(context:Context) {
-        val intent = Intent(context, Authentication::class.java).apply{}
-        startActivity(intent)
     }
 }

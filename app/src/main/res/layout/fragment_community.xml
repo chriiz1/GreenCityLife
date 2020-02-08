@@ -29,16 +29,6 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom" />
 
-            <Button
-                android:id="@+id/a_main_btn_authentication2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:text="open Auth2"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:layout_editor_absoluteY="43dp" />
-
             <ImageButton
                 android:id="@+id/add_entry_button"
                 android:layout_width="wrap_content"
