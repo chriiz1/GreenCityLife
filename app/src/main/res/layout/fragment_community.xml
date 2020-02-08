@@ -17,46 +17,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <fragment
-            android:id="@+id/fragment5"
-            android:name="com.example.greencitylife.MapFragment"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            tools:layout_editor_absoluteY="712dp">
+            tools:layout_editor_absoluteY="19dp">
 
-            <LinearLayout
+            <fragment
+                android:id="@+id/fragment5"
+                android:name="com.example.greencitylife.MapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_gravity="bottom" />
 
-                <ImageButton
-                    android:id="@+id/add_entry_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:gravity="bottom"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="10dp"
-                    android:src="@drawable/ic_add_circle_black_48dp" />
+            <ImageButton
+                android:id="@+id/add_entry_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/button_market"
+                android:gravity="bottom|right"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:src="@drawable/ic_add_circle_black_48dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.953"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/fragment5"
+                app:layout_constraintVertical_bias="0.81" />
 
-                <ImageButton
-                    android:id="@+id/search_entry_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:gravity="bottom"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="10dp"
-                    android:src="@drawable/ic_search_black_48dp" />
+            <ImageButton
+                android:id="@+id/search_entry_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/button_market"
+                android:gravity="bottom|right"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:src="@drawable/ic_search_black_48dp"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment5"
+                app:layout_constraintEnd_toEndOf="@+id/fragment5"
+                app:layout_constraintHorizontal_bias="0.953"
+                app:layout_constraintStart_toStartOf="@+id/fragment5"
+                app:layout_constraintTop_toTopOf="@+id/fragment5"
+                app:layout_constraintVertical_bias="0.94" />
 
-            </LinearLayout>
-
-
-
-        </fragment>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </LinearLayout>

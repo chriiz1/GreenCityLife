@@ -9,4 +9,13 @@
     <string name="garden_button_text">Market</string>
     <string name="community_button_text">Community</string>
     <string name="mygarden_button_text">My Garden</string>
+
+    <!--Other string resources also defined in this file… -->
+    <string name="feedbacktype1">Knowledge</string>
+    <string name="feedbacktype2">Practical help</string>
+    <string name="feedbacktype3">Goods</string>
+    <string name="create_entry">Create Entry</string>
+    <string name="choose_image">Choose Image</string>
+    <string name="enter_description">Enter description</string>
+    <string name="offer">Offer</string>
 </resources>
