@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.greencitylife">
+xmlns:tools="http://schemas.android.com/tools"
+package="com.example.greencitylife">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -20,22 +20,20 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <meta-data
-            android:value="@string/google_maps_key" />
+            android:value="@string/google_maps_key"
             android:name="com.google.android.geo.API_KEY"
-
+            />
         <activity android:name=".ContainerActivity">
-        <activity android:name=".chooseGarden"></activity>
-        <activity android:name=".VerifyEmail" />
-        <activity android:name=".resetPassword" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".chooseGarden"/>
+        <activity android:name=".VerifyEmail" />
+        <activity android:name=".resetPassword" />
         <activity android:name=".DbExamples" />
-        <activity android:name=".Registration2" />
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".Authentication" />
+        <activity android:name=".MainActivity"/>
     </application>
-
 </manifest>

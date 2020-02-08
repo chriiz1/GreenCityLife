@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
         updateAuthInfo()
     }
 
-    fun openRegistration2(view: View) {
-        val intent = Intent(this, Registration2::class.java).apply{}
+    fun openRegistration(view: View) {
+        val intent = Intent(this, Authentication::class.java).apply{}
         startActivity(intent)
     }
 
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             a_main_tv_authStatus.text = ""
             a_main_btn_authentication.text = "login/sign-up"
             a_main_btn_authentication.setOnClickListener{
-                val intent = Intent(this, Registration2::class.java).apply{}
+                val intent = Intent(this, Authentication::class.java).apply{}
                 startActivity(intent)
             }
         }

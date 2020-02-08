@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_registration2.*
 const val MESSAGE = "com.example.myfirstapp.MESSAGE"
 
 
-class Registration2 : AppCompatActivity(), View.OnClickListener{
+class Authentication : AppCompatActivity(), View.OnClickListener{
     private val TAG = "FirebaseEmailPassword"
 
     private var mAuth: FirebaseAuth? = null
@@ -88,8 +88,9 @@ class Registration2 : AppCompatActivity(), View.OnClickListener{
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.e(TAG, "signIn: Success!")
-//                    val intent = Intent(this, MainActivity::class.java).apply{}
-//                    startActivity(intent)
+                    val intent = Intent(this, ContainerActivity::class.java).apply{}
+                    startActivity(intent)
+                    Toast.makeText(applicationContext, "Authentication successfull!", Toast.LENGTH_SHORT).show()
                     finish()
                 } else {
                     Log.e(TAG, "signIn: Fail!", task.exception)
