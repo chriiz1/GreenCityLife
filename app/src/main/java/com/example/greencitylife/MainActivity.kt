@@ -1,9 +1,9 @@
 package com.example.greencitylife
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //saveData()
+        saveData()
         //readData()
         mAuth = FirebaseAuth.getInstance()
         if (mAuth!!.currentUser != null)
@@ -99,7 +99,8 @@ fun saveData(){
         Garden("Attemsgarten", "Attemsgasse 24"),
         Garden("Allmende Andritz", "Ziegelstraße 35"),
         Garden("Gartenzwerge Geidorf", "Schwimmschuhkai 110"),
-        Garden("Niesenberger Garten", "Niesenbergergasse 16")
+        Garden("Niesenberger Garten", "Niesenbergergasse 16"),
+        Garden("Neuer Garten", "Niesenbergergasse 16")
     )
 
     val userList = listOf(

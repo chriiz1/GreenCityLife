@@ -17,7 +17,7 @@ data class User(
 
 
 data class Entry(
-    var name: String = "",
+    var title: String = "",
     var category: String = "",
     var type: String = "",
     var additionalText: String = "",

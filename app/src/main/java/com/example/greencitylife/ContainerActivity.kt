@@ -24,10 +24,9 @@ class ContainerActivity : AppCompatActivity() {
 
         return when (item.itemId) {
             R.id.action_login -> {
-                Toast.makeText(applicationContext, "click on login", Toast.LENGTH_LONG).show()
                 val intent = Intent(this, Authentication::class.java).apply{}
                 startActivity(intent)
-                true
+                return true
             }
 
             R.id.action_settings -> {

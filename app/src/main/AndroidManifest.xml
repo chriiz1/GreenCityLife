@@ -29,6 +29,7 @@ package="com.example.greencitylife">
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".chooseGarden"/>
         <activity android:name=".VerifyEmail" />
         <activity android:name=".resetPassword" />

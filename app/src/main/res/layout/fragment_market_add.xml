@@ -34,20 +34,21 @@
                 android:orientation="vertical">
 
                 <RadioGroup
+                    android:id="@+id/entry_type_selection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="30dp"
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/search_button"
+                        android:id="@+id/search_radio_button"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@android:string/search_go" />
 
                     <RadioButton
-                        android:id="@+id/offer_button"
+                        android:id="@+id/offer__radio_button"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -57,7 +58,7 @@
 
 
                 <Spinner
-                    android:id="@+id/SpinnerFeedbackType"
+                    android:id="@+id/entry_category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"

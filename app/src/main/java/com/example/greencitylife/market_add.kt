@@ -10,11 +10,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.fragment_market_add.*
 
 /**
@@ -22,14 +21,13 @@ import kotlinx.android.synthetic.main.fragment_market_add.*
  */
 class market_add : Fragment() {
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_market_add, container, false)
-        // get context
-        val thiscontext = container!!.getContext()
 
         // set color and text color of market button
         val market_button = view.findViewById<Button>(R.id.market_button)
@@ -43,11 +41,10 @@ class market_add : Fragment() {
         // if load picture button is pressed user is asked to give permission to go to gallery
         val img_pick_btn = view.findViewById<Button>(R.id.img_pick_btn)
 
-
         img_pick_btn.setOnClickListener {
             //check runtime permission
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                if (checkSelfPermission(thiscontext, Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                if (checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) ==
                     PackageManager.PERMISSION_DENIED){
                     //permission denied
                     val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -67,12 +64,35 @@ class market_add : Fragment() {
 
         // create toast when submit_entry_button is pressed
         val submit_button = view.findViewById<Button>(R.id.submit_button)
+        val title: EditText = view.findViewById<EditText>(R.id.entry_title)
         submit_button.setOnClickListener{
-            Toast.makeText(thiscontext, "Your entry has been created", Toast.LENGTH_SHORT).show();
+            add_entry(view)
+            // after entry has been created --> navigation to entries news page
+            it.findNavController().navigate(R.id.market)
         }
 
         return view
 
+    }
+
+
+    private fun add_entry(view: View) {
+        // get entry data
+        var type: String = "nothing selected"
+        val title: String = view.findViewById<EditText>(R.id.entry_title).text.toString()
+        val description: String = view.findViewById<EditText>(R.id.entry_description).text.toString()
+        val category: String = view.findViewById<Spinner>(R.id.entry_category).selectedItem.toString()
+        // get selection of radio button
+        val radioGroup = view.findViewById<RadioGroup>(R.id.entry_type_selection)
+        radioGroup?.setOnCheckedChangeListener { group, checkedId ->
+            type = if (R.id.offer__radio_button == checkedId) "offer" else "search"
+        }
+        // create entry
+        val entry = Entry(title = title, additionalText = description, category = category, type = type)
+        // write entry to database
+        entryRef.document().set(entry)
+        // make notification that entry has been created
+        Toast.makeText(requireContext(), "Entry has been created", Toast.LENGTH_SHORT).show()
     }
 
 
@@ -104,7 +124,7 @@ class market_add : Fragment() {
                 }
                 else{
                     //permission from popup denied
-                    Toast.makeText(activity,"Permission denied", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),"Permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
         }
