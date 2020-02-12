@@ -22,7 +22,8 @@ data class Entry(
     var type: String = "",
     var additionalText: String = "",
     var userId: String = "",
-    var gardenId: String = ""
+    var gardenId: String = "",
+    var imageID: String = ""
 )
 
 data class Comment(

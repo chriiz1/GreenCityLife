@@ -4,7 +4,10 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,13 +17,19 @@ import android.widget.*
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.fragment_market_add.*
+import java.io.ByteArrayOutputStream
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
  */
 class market_add : Fragment() {
 
+    private var imageURI: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,36 +56,39 @@ class market_add : Fragment() {
                 if (checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) ==
                     PackageManager.PERMISSION_DENIED){
                     //permission denied
-                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
+                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
                     //show popup to request runtime permission
-                    requestPermissions(permissions, PERMISSION_CODE);
+                    requestPermissions(permissions, PERMISSION_CODE)
                 }
                 else{
                     //permission already granted
-                    pickImageFromGallery();
+                    pickImageFromGallery()
                 }
             }
             else{
                 //system OS is < Marshmallow
-                pickImageFromGallery();
+                pickImageFromGallery()
             }
         }
 
         // create toast when submit_entry_button is pressed
         val submit_button = view.findViewById<Button>(R.id.submit_button)
-        val title: EditText = view.findViewById<EditText>(R.id.entry_title)
         submit_button.setOnClickListener{
-            add_entry(view)
+            val imageView = view.findViewById<ImageView>(R.id.entry_image)
+            // create name for image
+            val imageName = UUID.randomUUID().toString()
+            // upload image
+            uploadPic(imageView, imageName)
+            // create entry
+            add_entry(view, imageName)
             // after entry has been created --> navigation to entries news page
             it.findNavController().navigate(R.id.market)
         }
-
         return view
-
     }
 
 
-    private fun add_entry(view: View) {
+    private fun add_entry(view: View, imageName: String) {
         // get entry data
         var type: String = "nothing selected"
         val title: String = view.findViewById<EditText>(R.id.entry_title).text.toString()
@@ -88,7 +100,7 @@ class market_add : Fragment() {
             type = if (R.id.offer__radio_button == checkedId) "offer" else "search"
         }
         // create entry
-        val entry = Entry(title = title, additionalText = description, category = category, type = type)
+        val entry = Entry(title = title, additionalText = description, category = category, type = type, imageID = imageName)
         // write entry to database
         entryRef.document().set(entry)
         // make notification that entry has been created
@@ -134,12 +146,39 @@ class market_add : Fragment() {
     //handle result of picked image
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
-            entry_image.setImageURI(data?.data)
+            if (data != null) {
+                imageURI = data.data!!
+            }
+            entry_image.setImageURI(imageURI)
         }
     }
 
 
+    // upload image to database
+    private fun uploadPic (imageView: ImageView, imageName: String) {
 
+        if(imageURI != null){
+            // creating storage reference from our app
+            val storageRef = storage.reference
+            // creating a reference to images/entry.jpg
+            val entryImageRef = storageRef.child("entry_images/$imageName")
 
+            // Get the data from an ImageView as bytes
+            val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val data = baos.toByteArray()
 
+            var uploadTask = entryImageRef.putBytes(data)
+            .addOnSuccessListener(OnSuccessListener<UploadTask.TaskSnapshot> {
+                Toast.makeText(context, "Image Uploaded", Toast.LENGTH_SHORT).show()
+            })?.addOnFailureListener(OnFailureListener { e ->
+                Toast.makeText(context, "Image Uploading Failed " + e.message, Toast.LENGTH_SHORT).show()
+            })
+        }else{
+            Toast.makeText(context, "Please Select an Image", Toast.LENGTH_SHORT).show()
+        }
+    }
 }
+
+

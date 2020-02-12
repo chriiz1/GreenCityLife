@@ -1,20 +1,23 @@
 package com.example.greencitylife
 
 
-import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 
 /**
  * A simple [Fragment] subclass.
  */
 class market : Fragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,60 +33,51 @@ class market : Fragment() {
         val market_news_button = view.findViewById<ImageButton>(R.id.market_news_button)
         market_news_button.setBackgroundColor(resources.getColor(R.color.button_market_clicked))
 
-        read_entries()
+        display_entries(view)
 
         return view
     }
 
 
-    private fun read_entries() {
-        // myDB is initialized in MainActivity
+    private fun display_entries (view: View) {
         myDB.collection("Entries")
             .get()
             .addOnSuccessListener { documents ->
-                val titleList = ArrayList<String>()
-                val descriptionList = ArrayList<String>()
+                val titleList: MutableList<String> = ArrayList()
+                val descriptionList: MutableList<String> = ArrayList()
+                val imageNameList: MutableList<String> = ArrayList()
+
                 for (document in documents) {
                     Log.d(TAG, "${document.id} => ${document.data}")
                     val title = document.data["title"].toString()
                     val description = document.data["additionalText"].toString()
+                    var imageName = document["imageID"].toString()
+                    if (imageName == "") {
+                        imageName == "no_image_available.png"
+                    }
                     titleList.add(title)
+                    imageNameList.add(imageName)
                     descriptionList.add(description)
                 }
-                displayEntries(titleList, descriptionList)
+
+                val listView = view.findViewById<ListView>(R.id.entriesListView)
+                val adapter = EntriesAdapter(requireContext(), titleList, descriptionList, imageNameList)
+                listView.adapter = adapter
+                
+                listView.setOnItemClickListener{parent, view, position, id ->
+
+                    Toast.makeText(requireContext(), "You have Clicked " + parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show()
+                }
+
+
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents: ", exception)
             }
     }
 
-
-    private fun displayEntries(titleList: ArrayList<String>,
-                               descriptionList: ArrayList<String>) {
-
-        val myListAdapter = MyListAdapter(requireActivity(), titleList, descriptionList)
-        val listView = view?.findViewById<ListView>(R.id.listView)
-        if (listView != null) {
-            listView.adapter = myListAdapter
-        }
-    }
 }
 
 
 
-class MyListAdapter(private val context: Activity, private val title: ArrayList<String>, private val description: ArrayList<String>)
-    : ArrayAdapter<String>(context, R.layout.custom_list, title) {
 
-    override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        val inflater = context.layoutInflater
-        val rowView = inflater.inflate(R.layout.custom_list, null, true)
-
-        val titleText = rowView.findViewById(R.id.title) as TextView
-        val subtitleText = rowView.findViewById(R.id.description) as TextView
-
-        titleText.text = title[position]
-        subtitleText.text = description[position]
-
-        return rowView
-    }
-}
