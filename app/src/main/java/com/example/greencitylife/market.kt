@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ListView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 
 /**
  * A simple [Fragment] subclass.
@@ -35,6 +35,16 @@ class market : Fragment() {
 
         display_entries(view)
 
+        val listView = view.findViewById<ListView>(R.id.entriesListView)
+        listView.setOnItemClickListener{parent, view, position, id ->
+
+            // get data of entry clicked on
+            val entry_data: List<String> = parent.getItemAtPosition(position) as List<String>
+            // pass firebase id of entry
+            val action = marketDirections.actionMarketToMarketEntry(entry_data[0])
+            findNavController().navigate(action)
+        }
+
         return view
     }
 
@@ -46,34 +56,34 @@ class market : Fragment() {
                 val titleList: MutableList<String> = ArrayList()
                 val descriptionList: MutableList<String> = ArrayList()
                 val imageNameList: MutableList<String> = ArrayList()
+                val idList: MutableList<String> = ArrayList()
 
                 for (document in documents) {
                     Log.d(TAG, "${document.id} => ${document.data}")
+                    val ID: String = document.id.toString()
                     val title = document.data["title"].toString()
                     val description = document.data["additionalText"].toString()
                     var imageName = document["imageID"].toString()
                     if (imageName == "") {
                         imageName == "no_image_available.png"
                     }
+
+                    idList.add(ID)
                     titleList.add(title)
                     imageNameList.add(imageName)
                     descriptionList.add(description)
                 }
 
+
                 val listView = view.findViewById<ListView>(R.id.entriesListView)
-                val adapter = EntriesAdapter(requireContext(), titleList, descriptionList, imageNameList)
+                val adapter = EntriesAdapter(requireContext(), idList, titleList, descriptionList, imageNameList)
                 listView.adapter = adapter
-                
-                listView.setOnItemClickListener{parent, view, position, id ->
-
-                    Toast.makeText(requireContext(), "You have Clicked " + parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show()
-                }
-
 
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents: ", exception)
             }
+
     }
 
 }

@@ -11,9 +11,10 @@ import android.widget.TextView
 
 
 class EntriesAdapter(private val context: Context,
+                     private val idList: MutableList<String>,
                      private val titleList: MutableList<String> ,
                      private val descriptionList: MutableList<String> ,
-                     private val imageList: MutableList<String> ): BaseAdapter() {
+                     private val imageList: MutableList<String> ): BaseAdapter(){
 
     private val inflater: LayoutInflater
             = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -25,10 +26,11 @@ class EntriesAdapter(private val context: Context,
 
     //2
     override fun getItem(position: Int): List<String> {
+        val ID = idList[position]
         val title = titleList[position]
         val description = descriptionList[position]
         val imageID = imageList[position]
-        val entry = listOf<String>(title, description, imageID)
+        val entry = listOf<String>(ID, title, description, imageID)
         return entry
     }
 
@@ -54,10 +56,10 @@ class EntriesAdapter(private val context: Context,
         // 1
         val entry = getItem(position)
 
-        titleTextView.text = entry[0]
-        subtitleTextView.text = entry[1]
+        titleTextView.text = entry[1]
+        subtitleTextView.text = entry[2]
 
-        val imageID = entry[2]
+        val imageID = entry[3]
 
 
         val storageRef = storage.reference
