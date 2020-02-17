@@ -7,14 +7,19 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
+
 const val TAG = "MainActivity"
 
+
 val myDB = FirebaseFirestore.getInstance()
+val storage = FirebaseStorage.getInstance()
+
 val userRef = myDB.collection("Users")
 val gardenRef = myDB.collection("Gardens")
 val entryRef = myDB.collection("Entries")

@@ -27,39 +27,24 @@
                 android:name="com.example.greencitylife.MapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="bottom" />
+                android:layout_gravity="bottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="61dp" />
 
-            <ImageButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/add_entry_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="bottom|right"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
-                android:src="@drawable/ic_add_circle_black_48dp"
+                android:clickable="true"
+                android:src="@mipmap/ic_lplus"
+                app:backgroundTint="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.953"
+                app:layout_constraintHorizontal_bias="0.954"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/fragment5"
-                app:layout_constraintVertical_bias="0.81" />
+                app:layout_constraintVertical_bias="0.879" />
 
-            <ImageButton
-                android:id="@+id/search_entry_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="bottom|right"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
-                android:src="@drawable/ic_search_black_48dp"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment5"
-                app:layout_constraintEnd_toEndOf="@+id/fragment5"
-                app:layout_constraintHorizontal_bias="0.953"
-                app:layout_constraintStart_toStartOf="@+id/fragment5"
-                app:layout_constraintTop_toTopOf="@+id/fragment5"
-                app:layout_constraintVertical_bias="0.94" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

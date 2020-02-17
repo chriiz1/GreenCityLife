@@ -1,20 +1,25 @@
 package com.example.greencitylife
 
 
-import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.ListView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.text.SimpleDateFormat
 
 /**
  * A simple [Fragment] subclass.
  */
 class market : Fragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,63 +32,72 @@ class market : Fragment() {
         market_button.setBackgroundColor(Color.LTGRAY)
         market_button.setTextColor(Color.WHITE)
 
-        val market_news_button = view.findViewById<ImageButton>(R.id.market_news_button)
-        market_news_button.setBackgroundColor(resources.getColor(R.color.button_market_clicked))
+        val add_button = view.findViewById<FloatingActionButton>(R.id.add_entry_button)
+        add_button.setOnClickListener{
+            it.findNavController().navigate(R.id.market_add)
+        }
 
-        read_entries()
+        display_entries(view)
+
+        val listView = view.findViewById<ListView>(R.id.entriesListView)
+        listView.setOnItemClickListener{parent, view, position, id ->
+
+            // get data of entry clicked on
+            val entry_data: List<String> = parent.getItemAtPosition(position) as List<String>
+            // pass firebase id of entry
+            val action = marketDirections.actionMarketToMarketEntry(entry_data[0])
+            findNavController().navigate(action)
+        }
 
         return view
     }
 
 
-    private fun read_entries() {
-        // myDB is initialized in MainActivity
+    private fun display_entries (view: View) {
         myDB.collection("Entries")
             .get()
             .addOnSuccessListener { documents ->
-                val titleList = ArrayList<String>()
-                val descriptionList = ArrayList<String>()
+                val titleList: MutableList<String> = ArrayList()
+                val descriptionList: MutableList<String> = ArrayList()
+                val idList: MutableList<String> = ArrayList()
+                val timeList: MutableList<String> = ArrayList()
+
                 for (document in documents) {
                     Log.d(TAG, "${document.id} => ${document.data}")
+                    val ID: String = document.id
                     val title = document.data["title"].toString()
-                    val description = document.data["additionalText"].toString()
+                    val type = document.data["type"].toString()
+                    val category = document.data["category"].toString()
+                    val description =  "$type : $category"
+                    // get time as Timestamp
+                    val timestamp = document.data["creationTime"] as com.google.firebase.Timestamp
+                    // convert to Date
+                    val date = timestamp.toDate()
+                    // set format for date
+                    val sdf = SimpleDateFormat("MM/dd/yyyy")
+                    val dateStr = sdf.format(date)
+
+                    // add entry attributes to lists
+                    idList.add(ID)
                     titleList.add(title)
                     descriptionList.add(description)
+                    timeList.add(dateStr)
                 }
-                displayEntries(titleList, descriptionList)
+
+
+                val listView = view.findViewById<ListView>(R.id.entriesListView)
+                val adapter = EntriesAdapter(requireContext(), idList, titleList, descriptionList, timeList)
+                listView.adapter = adapter
+
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents: ", exception)
             }
+
     }
 
-
-    private fun displayEntries(titleList: ArrayList<String>,
-                               descriptionList: ArrayList<String>) {
-
-        val myListAdapter = MyListAdapter(requireActivity(), titleList, descriptionList)
-        val listView = view?.findViewById<ListView>(R.id.listView)
-        if (listView != null) {
-            listView.adapter = myListAdapter
-        }
-    }
 }
 
 
 
-class MyListAdapter(private val context: Activity, private val title: ArrayList<String>, private val description: ArrayList<String>)
-    : ArrayAdapter<String>(context, R.layout.custom_list, title) {
 
-    override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        val inflater = context.layoutInflater
-        val rowView = inflater.inflate(R.layout.custom_list, null, true)
-
-        val titleText = rowView.findViewById(R.id.title) as TextView
-        val subtitleText = rowView.findViewById(R.id.description) as TextView
-
-        titleText.text = title[position]
-        subtitleText.text = description[position]
-
-        return rowView
-    }
-}

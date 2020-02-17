@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
  * A simple [Fragment] subclass.
@@ -28,15 +28,11 @@ class Community : Fragment() {
         community_button.setTextColor(Color.WHITE)
 
 
-        val add_button = view.findViewById<ImageButton>(R.id.add_entry_button)
+        val add_button = view.findViewById<FloatingActionButton>(R.id.add_entry_button)
         add_button.setOnClickListener{
             it.findNavController().navigate(R.id.market_add)
         }
 
-        val search_button = view.findViewById<ImageButton>(R.id.search_entry_button)
-        search_button.setOnClickListener{
-            it.findNavController().navigate(R.id.market_search)
-        }
 
         return view
 
