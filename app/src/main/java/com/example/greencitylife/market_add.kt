@@ -43,9 +43,6 @@ class market_add : Fragment() {
         market_button.setBackgroundColor(Color.LTGRAY)
         market_button.setTextColor(Color.WHITE)
 
-        // set color and text color of add button
-        val add_button = view.findViewById<ImageButton>(R.id.offer_button)
-        add_button.setBackgroundColor(resources.getColor(R.color.button_market_clicked))
 
         // if load picture button is pressed user is asked to give permission to go to gallery
         val img_pick_btn = view.findViewById<Button>(R.id.img_pick_btn)
@@ -90,15 +87,13 @@ class market_add : Fragment() {
 
     private fun add_entry(view: View, imageName: String) {
         // get entry data
-        var type: String = "nothing selected"
         val title: String = view.findViewById<EditText>(R.id.entry_title).text.toString()
         val description: String = view.findViewById<EditText>(R.id.entry_description).text.toString()
         val category: String = view.findViewById<Spinner>(R.id.entry_category).selectedItem.toString()
         // get selection of radio button
         val radioGroup = view.findViewById<RadioGroup>(R.id.entry_type_selection)
-        radioGroup?.setOnCheckedChangeListener { group, checkedId ->
-            type = if (R.id.offer__radio_button == checkedId) "offer" else "search"
-        }
+        // get type selection
+        val type: String = if (radioGroup.checkedRadioButtonId == R.id.offer__radio_button) "offer" else "search"
         // create entry
         val entry = Entry(title = title, additionalText = description, category = category, type = type, imageID = imageName)
         // write entry to database

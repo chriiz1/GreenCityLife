@@ -1,5 +1,6 @@
 package com.example.greencitylife
 
+import com.google.firebase.Timestamp
 import java.util.*
 
 
@@ -23,7 +24,8 @@ data class Entry(
     var additionalText: String = "",
     var userId: String = "",
     var gardenId: String = "",
-    var imageID: String = ""
+    var imageID: String = "",
+    var creationTime: Timestamp = Timestamp.now()
 )
 
 data class Comment(
