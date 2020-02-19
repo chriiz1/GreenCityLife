@@ -13,9 +13,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-
 const val TAG = "MainActivity"
-
 
 val myDB = FirebaseFirestore.getInstance()
 val storage = FirebaseStorage.getInstance()

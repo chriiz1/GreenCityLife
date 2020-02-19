@@ -18,4 +18,6 @@
     <string name="choose_image">Choose Image</string>
     <string name="enter_description">Enter description</string>
     <string name="offer">Offer</string>
+    <string name="welcome">"Hello New Gardener! Please choose a nickname and\n"
+                                          "create a new garden or enter an existing one."</string>
 </resources>

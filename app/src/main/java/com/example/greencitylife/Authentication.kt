@@ -7,12 +7,10 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.ProgressBar
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_registration2.*
+import kotlinx.android.synthetic.main.fragment_mygarden.*
 
 const val MESSAGE = "com.example.myfirstapp.MESSAGE"
 
@@ -32,6 +30,11 @@ class Authentication : AppCompatActivity(), View.OnClickListener{
         btn_verify_email.setOnClickListener(this)
         btn_forgot_password.setOnClickListener(this)
         mAuth = FirebaseAuth.getInstance()
+
+        button2.setOnClickListener{
+            val intent = Intent(this, chooseGarden::class.java).apply {}
+            startActivity(intent)
+        }
     }
 
     override fun onStart() {

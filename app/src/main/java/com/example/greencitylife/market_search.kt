@@ -29,6 +29,7 @@ class market_search : Fragment() {
         val market_search_button = view.findViewById<ImageButton>(R.id.search_button)
         market_search_button.setBackgroundColor(resources.getColor(R.color.button_market_clicked))
 
+
         return view
     }
 

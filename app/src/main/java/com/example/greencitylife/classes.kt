@@ -6,7 +6,8 @@ import java.util.*
 
 data class Garden(
     var name: String = "",
-    var address: String = ""
+    var address: String = "",
+    var imageID: String = ""
 )
 
 data class User(

@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mygarden">
-
-    <fragment
-        android:id="@+id/navbar"
-        android:name="com.example.greencitylife.NavBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <!-- TODO: Update blank fragment layout -->
-
+    tools:context=".NewGarden">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,74 +20,78 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Hello:" />
+                android:text="Name:" />
 
 
-            <TextView
-                android:id="@+id/my_garden_tv_user"
+            <EditText
+                android:id="@+id/new_garden_et_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
-                android:gravity="center"
-                android:text="My Garden" />
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textView2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="You are in the garden:" />
+                android:text="Address:" />
 
 
-            <TextView
-                android:id="@+id/my_garden_tv_my_garden"
+            <EditText
+                android:id="@+id/new_garden_et_address"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
-                android:gravity="center"
-                android:text="My Garden" />
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Address" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/my_garden_entry_image"
+        <!--ImageView where image will be set-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <fragment
+                android:id="@+id/new_garden_mapview"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/new_garden_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
-            android:paddingBottom="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_foreground" />
-
-        <!--Button to pick image-->
-        <Button
-            android:id="@+id/my_garden_btn_pick_img"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="70dp"
-            android:layout_marginBottom="30dp"
-            android:background="@color/button_market_clicked"
-            android:text="@string/choose_image" />
-
+            android:background="@color/colorPrimary"
+            android:text="create_garden" />
 
 
     </LinearLayout>
 
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

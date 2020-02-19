@@ -22,7 +22,6 @@ class NavBar : Fragment() {
 
         val view =  inflater.inflate(R.layout.fragment_nav_bar, container, false)
 
-
         val garden_button = view.findViewById<Button>(R.id.myGarden_button)
         garden_button.setOnClickListener{
             it.findNavController().navigate(R.id.mygarden)
@@ -37,8 +36,6 @@ class NavBar : Fragment() {
         community_button.setOnClickListener{
             it.findNavController().navigate(R.id.community)
         }
-
-
 
         return view
     }
