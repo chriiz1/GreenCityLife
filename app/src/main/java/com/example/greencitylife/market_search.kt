@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 
 /**
@@ -25,9 +24,6 @@ class market_search : Fragment() {
         val market_button = view.findViewById<Button>(R.id.market_button)
         market_button.setBackgroundColor(Color.LTGRAY)
         market_button.setTextColor(Color.WHITE)
-
-        val market_search_button = view.findViewById<ImageButton>(R.id.search_button)
-        market_search_button.setBackgroundColor(resources.getColor(R.color.button_market_clicked))
 
         return view
     }

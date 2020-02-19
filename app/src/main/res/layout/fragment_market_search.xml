@@ -17,11 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <fragment
-            android:id="@+id/navbar_market"
-            android:name="com.example.greencitylife.NavBar_market"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <!-- TODO: Update blank fragment layout -->
         <TextView

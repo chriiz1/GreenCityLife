@@ -69,8 +69,8 @@ class market_add : Fragment() {
         }
 
         // create toast when submit_entry_button is pressed
-        val submit_button = view.findViewById<Button>(R.id.submit_button)
-        submit_button.setOnClickListener{
+        val submitButton = view.findViewById<Button>(R.id.submit_button)
+        submitButton.setOnClickListener{
             val imageView = view.findViewById<ImageView>(R.id.entry_image)
             // create name for image
             val imageName = UUID.randomUUID().toString()
