@@ -121,6 +121,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:checked="true"
                         android:text="Time" />
 
                     <RadioButton
@@ -158,6 +159,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:checked="true"
                         android:text="@string/offer" />
 
                     <RadioButton
@@ -165,6 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:checked="true"
                         android:text="@android:string/search_go" />
                 </RadioGroup>
 
@@ -184,22 +187,23 @@
                     android:gravity="center"
                     android:text="Category " />
 
-                <RadioButton
-                    android:id="@+id/rb_knowledge"
+                <CheckBox
+                    android:id="@+id/cb_knowledge"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Knowledge" />
 
-                <RadioButton
-                    android:id="@+id/rb_goods"
+                <CheckBox
+                    android:id="@+id/cb_goods"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:checked="true"
                     android:text="Goods" />
 
-                <RadioButton
-                    android:id="@+id/rb_practical_help"
+                <CheckBox
+                    android:id="@+id/cb_practical_help"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

@@ -7,10 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ListView
-import android.widget.RadioGroup
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -44,7 +41,7 @@ class market : Fragment() {
         }
 
         // display all entries
-        displayEntries(view, "search")
+        displayEntries(view, orderByParameter = null, typeParameter = null, categoryParameter = ArrayList())
 
         // get buttons needed for expansion and collapse of search parameters layout
         val market_buttons = view.findViewById<ConstraintLayout>(R.id.market_buttons)
@@ -95,11 +92,9 @@ class market : Fragment() {
 
 
     // function for retrieving data from firestore and display them in ListView
-    private fun displayEntries (view: View, typeParameter: String) {
-        myDB.collection("Entries")
-            //TODO: query doesnt return any results
-            .whereEqualTo("type", typeParameter)
-            .orderBy("creationTime", Query.Direction.DESCENDING)
+    private fun displayEntries (view: View, orderByParameter: String?, typeParameter: String?, categoryParameter: ArrayList<String>) {
+        // createQuery creates query object
+        createQuery(orderByParameter, typeParameter, categoryParameter)
             .get()
             .addOnSuccessListener { documents ->
                 val titleList: MutableList<String> = ArrayList()
@@ -134,7 +129,49 @@ class market : Fragment() {
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents: ", exception)
+                Toast.makeText(context, "Query failed", Toast.LENGTH_LONG).show()
             }
+    }
+
+    // creates query object for data retrieval from firestore
+    private fun createQuery(orderByParameter: String?, typeParameter: String?, categoryParameter: ArrayList<String>): Query {
+
+        // if non category is selected
+        if (categoryParameter.isEmpty()) {
+            categoryParameter.add("Nothing")
+        }
+
+            // case: all entries are shown ordered by time; initial state
+        if (orderByParameter == null) {
+            val query = myDB.collection("Entries")
+                .orderBy("creationTime", Query.Direction.ASCENDING)
+            return query
+
+            //  case: ordered by time + additional parameters
+        } else if (orderByParameter == "time") {
+            val query = myDB.collection("Entries")
+                .whereEqualTo("type", typeParameter)
+                .whereIn("category", categoryParameter)
+                .orderBy("creationTime", Query.Direction.DESCENDING)
+            return query
+
+            // ordered by distance
+        } else if (orderByParameter == "distance") {
+            // TODO: add order by distance
+            val query = myDB.collection("Entries")
+                .whereEqualTo("type", typeParameter)
+                .whereIn("category", categoryParameter)
+                .orderBy("creationTime", Query.Direction.ASCENDING)
+            return query
+
+            // case: invalid query: all entries are shown
+            // For development purposes
+        } else {
+            Toast.makeText(context, "Not a valid query", Toast.LENGTH_LONG).show()
+            val query = myDB.collection("Entries")
+                .orderBy("creationTime", Query.Direction.ASCENDING)
+            return query
+        }
     }
 
 
@@ -144,13 +181,23 @@ class market : Fragment() {
         // get "Order By" result
         val OrderByRadioGroup = view.findViewById<RadioGroup>(R.id.rgOrderBy)
         val orderByParameter: String = if (OrderByRadioGroup.checkedRadioButtonId == R.id.rb_time) "time" else "distance"
-        // get Category result
+        // get Type result
         val TypeRadioGroup = view.findViewById<RadioGroup>(R.id.rgType)
         val typeParameter = if (TypeRadioGroup.checkedRadioButtonId == R.id.rb_offer) "offer" else "search"
-        // get Type result
+        // get Category result
         // TODO get type/types which should be searched for
+        var lsCategories = ArrayList<String>()
+
+        val rbKnowledge = view.findViewById<CheckBox>(R.id.cb_knowledge)
+        val rbGoods = view.findViewById<CheckBox>(R.id.cb_goods)
+        val rbPracticalHelp = view.findViewById<CheckBox>(R.id.cb_practical_help)
+
+        if (rbKnowledge.isChecked) lsCategories.add("Knowledge")
+        if (rbGoods.isChecked) lsCategories.add("Goods")
+        if (rbPracticalHelp.isChecked) lsCategories.add("Practical help")
+
         // call displayEntries with search parameters
-        displayEntries(view, typeParameter)
+        displayEntries(view, orderByParameter = orderByParameter, typeParameter = typeParameter, categoryParameter = lsCategories)
         }
 }
 
