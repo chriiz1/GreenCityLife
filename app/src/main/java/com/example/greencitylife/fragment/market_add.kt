@@ -1,4 +1,4 @@
-package com.example.greencitylife
+package com.example.greencitylife.fragment
 
 import android.Manifest
 import android.app.Activity
@@ -17,6 +17,10 @@ import android.widget.*
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.example.greencitylife.Entry
+import com.example.greencitylife.R
+import com.example.greencitylife.activity.entryRef
+import com.example.greencitylife.activity.storage
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.UploadTask
@@ -55,7 +59,9 @@ class market_add : Fragment() {
                     //permission denied
                     val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
                     //show popup to request runtime permission
-                    requestPermissions(permissions, PERMISSION_CODE)
+                    requestPermissions(permissions,
+                        PERMISSION_CODE
+                    )
                 }
                 else{
                     //permission already granted
@@ -95,7 +101,13 @@ class market_add : Fragment() {
         // get type selection
         val type: String = if (radioGroup.checkedRadioButtonId == R.id.offer__radio_button) "offer" else "search"
         // create entry
-        val entry = Entry(title = title, additionalText = description, category = category, type = type, imageID = imageName)
+        val entry = Entry(
+            title = title,
+            additionalText = description,
+            category = category,
+            type = type,
+            imageID = imageName
+        )
         // write entry to database
         entryRef.document().set(entry)
         // make notification that entry has been created
@@ -107,7 +119,9 @@ class market_add : Fragment() {
         //Intent to pick image
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, IMAGE_PICK_CODE)
+        startActivityForResult(intent,
+            IMAGE_PICK_CODE
+        )
     }
 
 
@@ -157,7 +171,6 @@ class market_add : Fragment() {
             val storageRef = storage.reference
             // creating a reference to images/entry.jpg
             val entryImageRef = storageRef.child("entry_images/$imageName")
-
             // Get the data from an ImageView as bytes
             val bitmap = (imageView.drawable as BitmapDrawable).bitmap
             val baos = ByteArrayOutputStream()

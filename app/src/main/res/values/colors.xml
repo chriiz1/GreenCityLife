@@ -9,4 +9,6 @@
     <color name="normal_text_black">#000000</color>
     <color name="background_default">#F3DAB1</color>
     <color name="fill_form">#E9ECEC</color>
+    <color name="white">#ffffff</color>
+    <color name="softGray">#e8e8e8</color>
 </resources>

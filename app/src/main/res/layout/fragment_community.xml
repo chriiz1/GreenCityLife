@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Community">
+    tools:context=".fragment.Community">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
 
         <fragment
             android:id="@+id/navbar"
-            android:name="com.example.greencitylife.NavBar"
+            android:name="com.example.greencitylife.fragment.NavBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -24,7 +24,7 @@
 
             <fragment
                 android:id="@+id/fragment5"
-                android:name="com.example.greencitylife.MapFragment"
+                android:name="com.example.greencitylife.fragment.MapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"

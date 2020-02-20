@@ -1,4 +1,4 @@
-package com.example.greencitylife
+package com.example.greencitylife.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,11 +7,9 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.ProgressBar
 import android.widget.Toast
+import com.example.greencitylife.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_registration2.*
 
 const val MESSAGE = "com.example.myfirstapp.MESSAGE"
@@ -32,6 +30,11 @@ class Authentication : AppCompatActivity(), View.OnClickListener{
         btn_verify_email.setOnClickListener(this)
         btn_forgot_password.setOnClickListener(this)
         mAuth = FirebaseAuth.getInstance()
+
+        button2.setOnClickListener{
+            val intent = Intent(this, chooseGarden::class.java).apply {}
+            startActivity(intent)
+        }
     }
 
     override fun onStart() {
@@ -119,7 +122,8 @@ class Authentication : AppCompatActivity(), View.OnClickListener{
                     Toast.makeText(applicationContext, "Failed to send verification email.", Toast.LENGTH_SHORT).show()
                 }
             }
-        val intent = Intent(this, VerifyEmail::class.java).apply{putExtra(MESSAGE, user.email)}
+        val intent = Intent(this, VerifyEmail::class.java).apply{putExtra(
+            MESSAGE, user.email)}
         startActivity(intent)
     }
 

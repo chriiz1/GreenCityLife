@@ -4,9 +4,17 @@ import com.google.firebase.Timestamp
 import java.util.*
 
 
+data class Image(
+    var title: String = "",
+    var Id: String = "",
+    var author: String = ""
+)
+
 data class Garden(
     var name: String = "",
-    var address: String = ""
+    var address: String = "",
+    var imageID: String = ""
+    //images
 )
 
 data class User(

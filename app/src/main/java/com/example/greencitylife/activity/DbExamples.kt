@@ -1,12 +1,12 @@
-package com.example.greencitylife
+package com.example.greencitylife.activity
 
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import com.example.greencitylife.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.CollectionReference
 import kotlinx.android.synthetic.main.activity_db_examples.*
 
 
@@ -63,7 +63,11 @@ class DbExamples : AppCompatActivity() {
 
 
     fun saveUser(view: View) {
-        var user = User(UID = txtUser.text.toString(), name = txtName.text.toString(), gardenId = spinner.selectedItem.toString())
+        var user = User(
+            UID = txtUser.text.toString(),
+            name = txtName.text.toString(),
+            gardenId = spinner.selectedItem.toString()
+        )
         userRef.document(user.UID).set(user)
     }
 

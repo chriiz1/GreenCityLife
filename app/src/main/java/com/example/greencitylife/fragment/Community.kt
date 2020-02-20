@@ -1,4 +1,4 @@
-package com.example.greencitylife
+package com.example.greencitylife.fragment
 
 
 import android.graphics.Color
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.example.greencitylife.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**

@@ -1,4 +1,4 @@
-package com.example.greencitylife
+package com.example.greencitylife.fragment
 
 
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.example.greencitylife.R
 
 /**
  * A simple [Fragment] subclass.
@@ -21,7 +22,6 @@ class NavBar : Fragment() {
         // Inflate the layout for this fragment
 
         val view =  inflater.inflate(R.layout.fragment_nav_bar, container, false)
-
 
         val garden_button = view.findViewById<Button>(R.id.myGarden_button)
         garden_button.setOnClickListener{
@@ -37,8 +37,6 @@ class NavBar : Fragment() {
         community_button.setOnClickListener{
             it.findNavController().navigate(R.id.community)
         }
-
-
 
         return view
     }

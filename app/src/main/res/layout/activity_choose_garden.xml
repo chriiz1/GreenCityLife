@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".chooseGarden">
+    tools:context=".activity.chooseGarden">
 
     <LinearLayout
         android:layout_width="409dp"
@@ -33,27 +33,37 @@
             android:inputType="textPersonName"
             android:text="enter Username" />
 
+
+        <LinearLayout
+            android:layout_width="347dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/choose_garden_spinner_choose"
+                android:layout_width="201dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/choose_garden_btn_choose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="choose garden" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/a_choose_garden_btn_new_garden"
-                android:layout_width="wrap_content"
+                android:id="@+id/choose_garden_btn_new_garden"
+                android:layout_width="231dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Create new Garden" />
-
-            <Button
-                android:id="@+id/a_choose_garden_btn_existing_garden"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Enter existing Garden"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

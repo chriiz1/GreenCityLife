@@ -1,4 +1,4 @@
-package com.example.greencitylife
+package com.example.greencitylife.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,12 +6,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.greencitylife.R
 
 class ContainerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
