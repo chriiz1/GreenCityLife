@@ -14,7 +14,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.greencitylife.R
 import com.example.greencitylife.adapter.Image
 import com.example.greencitylife.helper.ZoomOutPageTransformer
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.image_fullscreen.view.*
+import kotlinx.android.synthetic.main.item_gallery_image.view.*
 
 class GalleryFullscreenFragment : DialogFragment() {
     private var imageList = ArrayList<Image>()
@@ -60,12 +62,19 @@ class GalleryFullscreenFragment : DialogFragment() {
             val layoutInflater = activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view = layoutInflater.inflate(R.layout.image_fullscreen, container, false)
             val image = imageList.get(position)
+
             // load image
-            Glide.with(context!!)
-                .load(image.imageUrl)
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(view.ivFullscreenImage)
+            val storage = FirebaseStorage.getInstance()
+            val storageRef = storage.reference
+            val imageRef = storageRef.child("entry_images/${image.imageUrl}").downloadUrl
+                .addOnSuccessListener { uri ->
+                    Glide.with(context!!)
+                        .load(uri)
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(view.ivFullscreenImage)
+                }
+
             container.addView(view)
             return view
         }
