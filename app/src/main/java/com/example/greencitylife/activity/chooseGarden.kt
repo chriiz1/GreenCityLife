@@ -1,12 +1,12 @@
-package com.example.greencitylife
+package com.example.greencitylife.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
+import com.example.greencitylife.*
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_choose_garden.*
 
@@ -32,7 +32,11 @@ class chooseGarden : AppCompatActivity() {
             val gardenId = choose_garden_spinner_choose.selectedItem.toString()
             mAuth = FirebaseAuth.getInstance()
             val currentUser = mAuth!!.currentUser
-            val newUser = User(currentUser!!.uid, nickname.text.toString(), gardenId = gardenId)
+            val newUser = User(
+                currentUser!!.uid,
+                nickname.text.toString(),
+                gardenId = gardenId
+            )
             userRef.document(newUser.UID).set(newUser)
             val intent = Intent(this, ContainerActivity::class.java).apply{}
             startActivity(intent)

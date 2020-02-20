@@ -3,6 +3,8 @@ package com.example.greencitylife
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.greencitylife.activity.MESSAGE
+import com.example.greencitylife.activity.chooseGarden
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_verify_email.*
 

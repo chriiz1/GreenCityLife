@@ -1,4 +1,4 @@
-package com.example.greencitylife
+package com.example.greencitylife.fragment
 
 
 import android.content.pm.PackageManager
@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import com.example.greencitylife.R
+import com.example.greencitylife.activity.TAG
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory

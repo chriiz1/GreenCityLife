@@ -1,4 +1,4 @@
-package com.example.greencitylife
+package com.example.greencitylife.fragment
 
 
 import android.content.Context
@@ -17,6 +17,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Registry
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
+import com.example.greencitylife.R
+import com.example.greencitylife.activity.TAG
+import com.example.greencitylife.activity.myDB
+import com.example.greencitylife.fragment.market_entryArgs
 import com.firebase.ui.storage.images.FirebaseImageLoader
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.storage.FirebaseStorage
@@ -80,6 +84,7 @@ class market_entry : Fragment() {
 
     // after retrieving data from db call this function to fill layout with this data
     private fun display_entry_data(data: DocumentSnapshot) {
+
         val view = requireView()
 
         val title = data.get("title").toString()

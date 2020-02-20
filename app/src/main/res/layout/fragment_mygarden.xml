@@ -3,99 +3,113 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mygarden">
-
-    <fragment
-        android:id="@+id/navbar"
-        android:name="com.example.greencitylife.NavBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <!-- TODO: Update blank fragment layout -->
-
-
+    tools:context=".fragment.mygarden">
     <LinearLayout
+        style="@style/Widget.AppCompat.Light.ActionBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <fragment
+            android:id="@+id/navbar"
+            android:name="com.example.greencitylife.fragment.NavBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Hello:" />
+        <!-- TODO: Update blank fragment layout -->
 
-
-            <TextView
-                android:id="@+id/my_garden_tv_user"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:gravity="center"
-                android:text="My Garden" />
-        </LinearLayout>
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="You are in the garden:" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
 
-
-            <TextView
-                android:id="@+id/my_garden_tv_my_garden"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:gravity="center"
-                android:text="My Garden" />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/my_garden_entry_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="30dp"
-            android:paddingBottom="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_foreground" />
-
-        <!--Button to pick image-->
-        <Button
-            android:id="@+id/my_garden_btn_pick_img"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="70dp"
-            android:layout_marginBottom="30dp"
-            android:background="@color/button_market_clicked"
-            android:text="@string/choose_image" />
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Hello:" />
 
 
+                    <TextView
+                        android:id="@+id/my_garden_tv_user"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:gravity="center"
+                        android:text="My Garden" />
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="You are in the garden:" />
+
+
+                    <TextView
+                        android:id="@+id/my_garden_tv_my_garden"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:gravity="center"
+                        android:text="My Garden" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/my_garden_image_gallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="30dp"
+                    android:paddingBottom="20dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_foreground" />
+
+                <!--Button to pick image-->
+                <Button
+                    android:id="@+id/my_garden_btn_pick_img"
+                    style="@style/Base.Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="70dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@color/button_market_clicked"
+                    android:text="Upload Image" />
+
+                <Button
+                    android:id="@+id/my_garden_btn_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="70dp"
+                    android:text="Edit information" />
+
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-
-
 </FrameLayout>

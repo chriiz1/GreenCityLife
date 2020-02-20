@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/community"
-        android:name="com.example.greencitylife.Community"
+        android:name="com.example.greencitylife.fragment.Community"
         android:label="fragment_community"
         tools:layout="@layout/fragment_community" />
     <fragment
         android:id="@+id/market"
-        android:name="com.example.greencitylife.market"
+        android:name="com.example.greencitylife.fragment.market"
         android:label="fragment_market"
         tools:layout="@layout/fragment_market" >
         <action
@@ -21,22 +21,22 @@
     </fragment>
     <fragment
         android:id="@+id/mygarden"
-        android:name="com.example.greencitylife.mygarden"
+        android:name="com.example.greencitylife.fragment.mygarden"
         android:label="fragment_mygarden"
         tools:layout="@layout/fragment_mygarden" />
     <fragment
         android:id="@+id/market_search"
-        android:name="com.example.greencitylife.market_search"
+        android:name="com.example.greencitylife.fragment.market_search"
         android:label="fragment_market_search"
         tools:layout="@layout/fragment_market_search" />
     <fragment
         android:id="@+id/market_add"
-        android:name="com.example.greencitylife.market_add"
+        android:name="com.example.greencitylife.fragment.market_add"
         android:label="fragment_market_add"
         tools:layout="@layout/fragment_market_add" />
     <fragment
         android:id="@+id/market_entry"
-        android:name="com.example.greencitylife.market_entry"
+        android:name="com.example.greencitylife.fragment.market_entry"
         android:label="fragment_market_entry"
         tools:layout="@layout/fragment_market_entry" >
         <argument

@@ -10,7 +10,7 @@
 
     <fragment
         android:id="@+id/navbar"
-        android:name="com.example.greencitylife.NavBar"
+        android:name="com.example.greencitylife.fragment.NavBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

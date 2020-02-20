@@ -1,9 +1,12 @@
-package com.example.greencitylife
+package com.example.greencitylife.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.greencitylife.Garden
+import com.example.greencitylife.R
+import com.example.greencitylife.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -90,9 +93,21 @@ fun readData(){
     // In this case the execution makes a break at query.get().await() and continues at this point when all data is loaded
     // In the while the execution continues at the next function
     GlobalScope.launch {
-        val allUsersFromAttemsgarten = getData<User>(userRef.whereEqualTo("gardenId", "Attemsgarten"))
-        val allUsers = getData<User>(userRef)
-        val allGardens = getData<Garden>(gardenRef)
+        val allUsersFromAttemsgarten =
+            getData<User>(
+                userRef.whereEqualTo(
+                    "gardenId",
+                    "Attemsgarten"
+                )
+            )
+        val allUsers =
+            getData<User>(
+                userRef
+            )
+        val allGardens =
+            getData<Garden>(
+                gardenRef
+            )
     }
 }
 
@@ -101,8 +116,14 @@ fun saveData(){
     val gardenList = listOf(
         Garden("Attemsgarten", "Attemsgasse 24"),
         Garden("Allmende Andritz", "Ziegelstraße 35"),
-        Garden("Gartenzwerge Geidorf", "Schwimmschuhkai 110"),
-        Garden("Niesenberger Garten", "Niesenbergergasse 16"),
+        Garden(
+            "Gartenzwerge Geidorf",
+            "Schwimmschuhkai 110"
+        ),
+        Garden(
+            "Niesenberger Garten",
+            "Niesenbergergasse 16"
+        ),
         Garden("Neuer Garten", "Niesenbergergasse 16")
     )
 

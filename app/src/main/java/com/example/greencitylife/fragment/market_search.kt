@@ -1,4 +1,4 @@
-package com.example.greencitylife
+package com.example.greencitylife.fragment
 
 
 import android.graphics.Color
@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import com.example.greencitylife.R
+
 
 /**
  * A simple [Fragment] subclass.

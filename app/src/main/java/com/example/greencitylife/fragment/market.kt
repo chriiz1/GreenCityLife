@@ -1,4 +1,4 @@
-package com.example.greencitylife
+package com.example.greencitylife.fragment
 
 
 import android.graphics.Color
@@ -12,6 +12,11 @@ import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.example.greencitylife.R
+import com.example.greencitylife.activity.TAG
+import com.example.greencitylife.activity.myDB
+import com.example.greencitylife.adapter.EntriesAdapter
+import com.example.greencitylife.fragment.marketDirections
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.SimpleDateFormat
 
@@ -45,7 +50,10 @@ class market : Fragment() {
             // get data of entry clicked on
             val entry_data: List<String> = parent.getItemAtPosition(position) as List<String>
             // pass firebase id of entry
-            val action = marketDirections.actionMarketToMarketEntry(entry_data[0])
+            val action =
+                marketDirections.actionMarketToMarketEntry(
+                    entry_data[0]
+                )
             findNavController().navigate(action)
         }
 
@@ -86,7 +94,13 @@ class market : Fragment() {
 
 
                 val listView = view.findViewById<ListView>(R.id.entriesListView)
-                val adapter = EntriesAdapter(requireContext(), idList, titleList, descriptionList, timeList)
+                val adapter = EntriesAdapter(
+                    requireContext(),
+                    idList,
+                    titleList,
+                    descriptionList,
+                    timeList
+                )
                 listView.adapter = adapter
 
             }

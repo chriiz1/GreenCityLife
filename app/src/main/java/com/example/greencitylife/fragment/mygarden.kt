@@ -1,4 +1,4 @@
-package com.example.greencitylife
+package com.example.greencitylife.fragment
 
 
 import android.Manifest
@@ -6,7 +6,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
@@ -21,12 +20,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.greencitylife.R
+import com.example.greencitylife.activity.TAG
+import com.example.greencitylife.activity.GardenImageGallery
+import com.example.greencitylife.activity.storage
+import com.example.greencitylife.activity.userRef
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.fragment_mygarden.*
-import org.w3c.dom.Text
 import java.io.ByteArrayOutputStream
 
 /**
@@ -41,16 +44,23 @@ class mygarden : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        mAuth = FirebaseAuth.getInstance()
         val view = inflater.inflate(R.layout.fragment_mygarden, container, false)
         val currentUser = mAuth!!.currentUser
         val user_id = currentUser!!.uid
 
         val logged_in_user = view.findViewById<TextView>(R.id.my_garden_tv_user)
         val my_garden = view.findViewById<TextView>(R.id.my_garden_tv_my_garden)
-        mAuth = FirebaseAuth.getInstance()
+
+        val img_view = view.findViewById<ImageView>(R.id.my_garden_image_gallery)
+
+        img_view.setOnClickListener{
+            val intent = Intent(context, GardenImageGallery::class.java).apply {}
+            startActivity(intent)
+        }
 
 
-        val btn_pick_img = view.findViewById<Button>(R.id.my_garden_entry_image)
+        val btn_pick_img = view.findViewById<Button>(R.id.my_garden_btn_pick_img)
         btn_pick_img.setOnClickListener {
             //check runtime permission
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -62,7 +72,9 @@ class mygarden : Fragment() {
                     //permission denied
                     val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
                     //show popup to request runtime permission
-                    requestPermissions(permissions, PERMISSION_CODE)
+                    requestPermissions(permissions,
+                        PERMISSION_CODE
+                    )
                 }
                 else{
                     //permission already granted
@@ -95,7 +107,9 @@ class mygarden : Fragment() {
         //Intent to pick image
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, IMAGE_PICK_CODE)
+        startActivityForResult(intent,
+            IMAGE_PICK_CODE
+        )
     }
 
 
@@ -106,7 +120,7 @@ class mygarden : Fragment() {
             if (data != null) {
                 imageURI = data.data!!
             }
-            my_garden_entry_image.setImageURI(imageURI)
+            my_garden_image_gallery.setImageURI(imageURI)
         }
     }
 

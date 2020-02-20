@@ -1,9 +1,10 @@
-package com.example.greencitylife
+package com.example.greencitylife.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
+import com.example.greencitylife.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_reset_password.*
 
