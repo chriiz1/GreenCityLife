@@ -1,6 +1,7 @@
 package com.example.greencitylife.fragment
 
 
+
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
@@ -20,45 +21,68 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.greencitylife.R
-import com.example.greencitylife.activity.TAG
-import com.example.greencitylife.activity.GardenImageGallery
-import com.example.greencitylife.activity.storage
-import com.example.greencitylife.activity.userRef
+import com.example.greencitylife.activity.*
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.fragment_mygarden.*
 import java.io.ByteArrayOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * A simple [Fragment] subclass.
  */
+
+const val EXTRA_MESSAGE = "com.example.greencitylife.MESSAGE"
 class mygarden : Fragment() {
 
     private var mAuth: FirebaseAuth? = null
     private var imageURI: Uri? = null
+    private var userId: String? = null
+    private var gardenId: String? = null
+    private var gardenView: View? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        mAuth = FirebaseAuth.getInstance()
-        val view = inflater.inflate(R.layout.fragment_mygarden, container, false)
-        val currentUser = mAuth!!.currentUser
-        val user_id = currentUser!!.uid
 
+        mAuth = FirebaseAuth.getInstance()
+        val currentUser = mAuth!!.currentUser!!
+        userId = currentUser.uid
+
+        val view = inflater.inflate(R.layout.fragment_mygarden, container, false)
+        gardenView = view
         val logged_in_user = view.findViewById<TextView>(R.id.my_garden_tv_user)
         val my_garden = view.findViewById<TextView>(R.id.my_garden_tv_my_garden)
 
-        val img_view = view.findViewById<ImageView>(R.id.my_garden_image_gallery)
+        userRef.document(userId!!).get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                    gardenId = document.getString("gardenId")
+                    my_garden.text = gardenId
+                    logged_in_user.text = document.getString("name")
+                    loadImages(view)
 
-        img_view.setOnClickListener{
-            val intent = Intent(context, GardenImageGallery::class.java).apply {}
-            startActivity(intent)
-        }
+                    val img_view = view.findViewById<ImageView>(R.id.my_garden_image_gallery)
+                    img_view.setOnClickListener{
+                        val intent = Intent(context, GardenImageGallery::class.java).apply {
+                            putExtra(EXTRA_MESSAGE, gardenId)
+                        }
+                        startActivity(intent)
+                    }
 
+                } else {
+                    Log.d(TAG, "No such document")
+                }
+            }
 
         val btn_pick_img = view.findViewById<Button>(R.id.my_garden_btn_pick_img)
         btn_pick_img.setOnClickListener {
@@ -87,20 +111,28 @@ class mygarden : Fragment() {
             }
         }
 
-        userRef.document(user_id).get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                    val garden = document.getString("gardenId")
-                    my_garden.text = garden
-                    logged_in_user.text = document.getString("name")
-
-                } else {
-                    Log.d(TAG, "No such document")
-                }
-            }
-
         return view
+    }
+
+    private fun loadImages(view: View){
+        val img_gallery = view!!.findViewById<ImageView>(R.id.my_garden_image_gallery)
+        gardenRef.document(gardenId!!).get().addOnSuccessListener { document ->
+            if(document != null) {
+                val images = document.get("images") as ArrayList<*>
+                val firstImage =  images.last()
+                val storage = FirebaseStorage.getInstance()
+                val storageRef = storage.reference
+                val imageRef = storageRef.child("entry_images/$firstImage").downloadUrl
+                    .addOnSuccessListener { uri ->
+                        Glide
+                            .with(view!!)
+                            .load(uri)
+                            .centerCrop()
+                            .into(img_gallery)
+                    }
+            }
+        }
+
     }
 
     private fun pickImageFromGallery() {
@@ -121,6 +153,11 @@ class mygarden : Fragment() {
                 imageURI = data.data!!
             }
             my_garden_image_gallery.setImageURI(imageURI)
+
+            val imageView = gardenView!!.findViewById<ImageView>(R.id.my_garden_image_gallery)
+            // create name for image
+            val imageName = UUID.randomUUID().toString()
+            uploadPic(imageView, imageName)
         }
     }
 
@@ -135,6 +172,7 @@ class mygarden : Fragment() {
     private fun uploadPic (imageView: ImageView, imageName: String) {
 
         if(imageURI != null){
+            saveImageInGarden(imageName)
             // creating storage reference from our app
             val storageRef = storage.reference
             // creating a reference to images/entry.jpg
@@ -155,6 +193,21 @@ class mygarden : Fragment() {
         }else{
             Toast.makeText(context, "Please Select an Image", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun saveImageInGarden(imageURI: String){
+        userRef.document(userId!!).get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    val garden = document.getString("gardenId")
+                    gardenRef.document(garden!!).update("images", FieldValue.arrayUnion(imageURI))
+                    Log.d(TAG, "$imageURI added to $garden")
+
+                } else {
+                    Log.d(TAG, "No such document")
+                }
+            }
+        gardenRef.document()
     }
 
 

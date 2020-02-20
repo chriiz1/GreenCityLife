@@ -13,8 +13,9 @@ data class Image(
 data class Garden(
     var name: String = "",
     var address: String = "",
-    var imageID: String = ""
-    //images
+    var images: MutableList<String> = mutableListOf(),
+    var lat: Double = 0.0,
+    var lon: Double = 0.0
 )
 
 data class User(

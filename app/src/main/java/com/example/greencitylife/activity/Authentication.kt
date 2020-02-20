@@ -29,31 +29,43 @@ class Authentication : AppCompatActivity(), View.OnClickListener{
         btn_sign_out.setOnClickListener(this)
         btn_verify_email.setOnClickListener(this)
         btn_forgot_password.setOnClickListener(this)
+        authentication_btn_logout.setOnClickListener(this)
         mAuth = FirebaseAuth.getInstance()
+        val currentUser = mAuth!!.currentUser
+
+        if (currentUser == null)
+            authentication_btn_logout.visibility = View.INVISIBLE
+        else
+            authentication_btn_logout.visibility = View.VISIBLE
+
 
         button2.setOnClickListener{
             val intent = Intent(this, chooseGarden::class.java).apply {}
             startActivity(intent)
         }
-    }
 
-    override fun onStart() {
-        super.onStart()
-
-        val currentUser = mAuth!!.currentUser
+        if(currentUser != null)
+            authentication_et_email.setText(currentUser!!.email)
     }
 
     override fun onClick(view: View?) {
         val i = view!!.id
 
         if (i == R.id.btn_email_create_account) {
-            createAccount(edtEmail.text.toString(), edtPassword.text.toString())
+            createAccount(authentication_et_email.text.toString(), authentication_et_password.text.toString())
         } else if (i == R.id.btn_email_sign_in) {
-            signIn(edtEmail.text.toString(), edtPassword.text.toString())
+            signIn(authentication_et_email.text.toString(), authentication_et_password.text.toString())
         } else if (i == R.id.btn_verify_email) {
             sendEmailVerification()
         } else if (i == R.id.btn_forgot_password) {
             startActivity(Intent(applicationContext, resetPassword::class.java))
+        } else if (i == R.id.authentication_btn_logout){
+            if(mAuth != null) {
+                mAuth!!.signOut()
+                finish()
+                startActivity(intent)
+            }
+
         }
     }
 
@@ -64,8 +76,8 @@ class Authentication : AppCompatActivity(), View.OnClickListener{
         }
         progressBar1.visibility = View.VISIBLE
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        edtEmail.clearFocus()
-        edtPassword.clearFocus()
+        authentication_et_email.clearFocus()
+        authentication_et_password.clearFocus()
         mAuth!!.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 progressBar1.visibility = View.GONE
@@ -110,6 +122,7 @@ class Authentication : AppCompatActivity(), View.OnClickListener{
         findViewById<View>(R.id.btn_verify_email).isEnabled = false
 
         val user = mAuth!!.currentUser
+
         user!!.sendEmailVerification()
             .addOnCompleteListener(this) { task ->
                 // Re-enable Verify Email button
@@ -122,8 +135,8 @@ class Authentication : AppCompatActivity(), View.OnClickListener{
                     Toast.makeText(applicationContext, "Failed to send verification email.", Toast.LENGTH_SHORT).show()
                 }
             }
-        val intent = Intent(this, VerifyEmail::class.java).apply{putExtra(
-            MESSAGE, user.email)}
+
+        val intent = Intent(this, VerifyEmail::class.java).apply{putExtra(MESSAGE, user.email)}
         startActivity(intent)
     }
 

@@ -37,7 +37,7 @@ class chooseGarden : AppCompatActivity() {
                 nickname.text.toString(),
                 gardenId = gardenId
             )
-            userRef.document(newUser.UID).set(newUser)
+            userRef.document(currentUser.uid).set(newUser)
             val intent = Intent(this, ContainerActivity::class.java).apply{}
             startActivity(intent)
         }
