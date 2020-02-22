@@ -16,7 +16,6 @@ import com.example.greencitylife.R
 import com.example.greencitylife.activity.TAG
 import com.example.greencitylife.activity.myDB
 import com.example.greencitylife.adapter.EntriesAdapter
-import com.example.greencitylife.fragment.marketDirections
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.SimpleDateFormat
 
@@ -24,7 +23,6 @@ import java.text.SimpleDateFormat
  * A simple [Fragment] subclass.
  */
 class market : Fragment() {
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

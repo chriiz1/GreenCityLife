@@ -43,4 +43,10 @@
             android:name="entry_id"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/garden_gallery"
+        android:name="com.example.greencitylife.fragment.garden_image_gallery"
+        android:label="fragment_garden_image_gallery"
+        tools:layout="@layout/fragment_mygarden_image_gallery" />
+
 </navigation>
