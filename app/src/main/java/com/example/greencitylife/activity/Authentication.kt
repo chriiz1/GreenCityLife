@@ -1,14 +1,15 @@
 package com.example.greencitylife.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
-import com.example.greencitylife.*
+import androidx.appcompat.app.AppCompatActivity
+import com.example.greencitylife.R
+import com.example.greencitylife.VerifyEmail
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_authentication.*
 
@@ -63,6 +64,7 @@ class Authentication : AppCompatActivity(), View.OnClickListener{
             if(mAuth != null) {
                 mAuth!!.signOut()
                 finish()
+                val intent = Intent(this, ContainerActivity::class.java).apply{}
                 startActivity(intent)
             }
 

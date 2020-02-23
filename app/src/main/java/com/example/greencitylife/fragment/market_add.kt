@@ -21,6 +21,7 @@ import com.example.greencitylife.Entry
 import com.example.greencitylife.R
 import com.example.greencitylife.activity.entryRef
 import com.example.greencitylife.activity.storage
+import com.example.greencitylife.getCurrentUserID
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.UploadTask
@@ -100,9 +101,11 @@ class market_add : Fragment() {
         val radioGroup = view.findViewById<RadioGroup>(R.id.entry_type_selection)
         // get type selection
         val type: String = if (radioGroup.checkedRadioButtonId == R.id.offer__radio_button) "offer" else "search"
+
         // create entry
         val entry = Entry(
             title = title,
+            userId = getCurrentUserID(),
             additionalText = description,
             category = category,
             type = type,
