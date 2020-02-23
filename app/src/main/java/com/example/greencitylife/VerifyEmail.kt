@@ -1,5 +1,6 @@
 package com.example.greencitylife
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_verify_email.*
 private var mAuth: FirebaseAuth? = null
 class VerifyEmail : AppCompatActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verify_email)
@@ -27,9 +29,9 @@ class VerifyEmail : AppCompatActivity() {
             while(!user!!.isEmailVerified()){
                 mAuth!!.currentUser!!.reload()
                 if(user!!.isEmailVerified ){
-                    this@VerifyEmail.runOnUiThread(java.lang.Runnable {
+                    this@VerifyEmail.runOnUiThread {
                         startActivity(Intent(this, chooseGarden::class.java).apply{})
-                    })
+                    }
                     Thread.currentThread().interrupt()
                 }
             }

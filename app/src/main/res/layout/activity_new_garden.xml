@@ -15,16 +15,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Name:" />
 
 
             <EditText
@@ -33,8 +26,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:hint="Name your garden"
+                android:inputType="textPersonName" />
         </LinearLayout>
 
         <LinearLayout
@@ -44,13 +37,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Address:" />
 
 
             <EditText
@@ -59,37 +45,77 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Address" />
+                android:hint="Address (eg. Attemsgasse 5 Graz)"
+                android:inputType="textPersonName" />
+
+
         </LinearLayout>
 
         <!--ImageView where image will be set-->
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/new_garden_btn_check_address"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:text="check Address" />
+
             <fragment
                 android:id="@+id/new_garden_mapview"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="300dp" />
+                android:layout_height="match_parent" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <Button
-            android:id="@+id/new_garden_submit"
+
+        <ImageView
+            android:id="@+id/new_garden_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_photo_black_36dp"
+            app:srcCompat="@color/browser_actions_divider_color" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="30dp"
-            android:background="@color/colorPrimary"
-            android:text="create_garden" />
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:weightSum="2"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/new_garden_btn_upload_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="upload image" />
 
+            <Button
+                android:id="@+id/new_garden_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="create_garden" />
+        </LinearLayout>
 
     </LinearLayout>
 

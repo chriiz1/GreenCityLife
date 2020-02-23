@@ -116,8 +116,6 @@ class market_entry : Fragment() {
                     .load(uri)
                     .centerCrop()
                     .into(imageView)
-
-
             }
     }
 

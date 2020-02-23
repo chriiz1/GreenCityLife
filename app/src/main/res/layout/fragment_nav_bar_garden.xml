@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.NavBar_garden">
+
+    <LinearLayout
+        style="@style/Widget.AppCompat.Light.ActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/nav_garden_btn_home"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/button_market"
+            android:padding="10dp"
+            android:src="@drawable/ic_home_black_36dp" />
+
+        <ImageButton
+            android:id="@+id/nav_garden_btn_news"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/button_market"
+            android:padding="10dp"
+            android:scrollbarSize="4dp"
+            android:src="@drawable/ic_new_releases_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/nav_garden_btn_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/button_market"
+            android:padding="10dp"
+            android:src="@drawable/ic_photo_black_36dp" />
+
+        <ImageButton
+            android:id="@+id/nav_garden_btn_members"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/button_market"
+            android:padding="10dp"
+            android:src="@drawable/ic_group_black_36dp" />
+
+    </LinearLayout>
+</FrameLayout>

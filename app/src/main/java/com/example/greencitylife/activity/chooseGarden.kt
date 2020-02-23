@@ -29,15 +29,22 @@ class chooseGarden : AppCompatActivity() {
         val btn_new_garden = findViewById<Button>(R.id.choose_garden_btn_new_garden)
 
         btn_choose_garden.setOnClickListener{
-            val gardenId = choose_garden_spinner_choose.selectedItem.toString()
+            val gardenName = choose_garden_spinner_choose.selectedItem.toString()
             mAuth = FirebaseAuth.getInstance()
             val currentUser = mAuth!!.currentUser
-            val newUser = User(
-                currentUser!!.uid,
-                nickname.text.toString(),
-                gardenId = gardenId
-            )
-            userRef.document(currentUser.uid).set(newUser)
+
+            gardenRef.limit(1).whereEqualTo("name", gardenName).get().addOnSuccessListener { documents ->
+                for (document in documents){
+                    val newUser = User(
+                        currentUser!!.uid,
+                        nickname.text.toString(),
+                        gardenId = document.get("id").toString()
+                    )
+                    userRef.document(currentUser.uid).set(newUser)
+
+                }
+
+            }
             val intent = Intent(this, ContainerActivity::class.java).apply{}
             startActivity(intent)
         }

@@ -16,16 +16,15 @@ import com.example.greencitylife.adapter.Image
 import com.example.greencitylife.helper.ZoomOutPageTransformer
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.image_fullscreen.view.*
-import kotlinx.android.synthetic.main.item_gallery_image.view.*
 
-class GalleryFullscreenFragment : DialogFragment() {
+class mygarden_image_fullscreen : DialogFragment() {
     private var imageList = ArrayList<Image>()
     private var selectedPosition: Int = 0
     lateinit var tvGalleryTitle: TextView
     lateinit var viewPager: ViewPager
     lateinit var galleryPagerAdapter: GalleryPagerAdapter
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_gallery_fullscreen, container, false)
+        val view = inflater.inflate(R.layout.fragment_mygarden_image_fullscreen, container, false)
         viewPager = view.findViewById(R.id.viewPager)
         tvGalleryTitle = view.findViewById(R.id.tvGalleryTitle)
         galleryPagerAdapter = GalleryPagerAdapter()
@@ -66,7 +65,7 @@ class GalleryFullscreenFragment : DialogFragment() {
             // load image
             val storage = FirebaseStorage.getInstance()
             val storageRef = storage.reference
-            val imageRef = storageRef.child("entry_images/${image.imageUrl}").downloadUrl
+            storageRef.child("entry_images/${image.imageUrl}").downloadUrl
                 .addOnSuccessListener { uri ->
                     Glide.with(context!!)
                         .load(uri)

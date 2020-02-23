@@ -10,7 +10,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.example.greencitylife.*
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_registration2.*
+import kotlinx.android.synthetic.main.activity_authentication.*
 
 const val MESSAGE = "com.example.myfirstapp.MESSAGE"
 
@@ -22,7 +22,7 @@ class Authentication : AppCompatActivity(), View.OnClickListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registration2)
+        setContentView(R.layout.activity_authentication)
 
         btn_email_sign_in.setOnClickListener(this)
         btn_email_create_account.setOnClickListener(this)
@@ -84,11 +84,11 @@ class Authentication : AppCompatActivity(), View.OnClickListener{
                 window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 if (task.isSuccessful) {
                     Log.e(TAG, "createAccount: Success!")
-
+                    Toast.makeText(applicationContext, "createAccount: Success!", Toast.LENGTH_SHORT).show()
                     sendEmailVerification()
                 } else {
                     Log.e(TAG, "createAccount: Fail!", task.exception)
-                    Toast.makeText(applicationContext, "Authentication failed!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Creation of Account failed!", Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -118,26 +118,18 @@ class Authentication : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun sendEmailVerification() {
-        // Disable Verify Email button
-        findViewById<View>(R.id.btn_verify_email).isEnabled = false
-
-        val user = mAuth!!.currentUser
-
-        user!!.sendEmailVerification()
-            .addOnCompleteListener(this) { task ->
-                // Re-enable Verify Email button
-                findViewById<View>(R.id.btn_verify_email).isEnabled = true
-
-                if (task.isSuccessful) {
-                    Toast.makeText(applicationContext, "Verification email sent to " + user.email!!, Toast.LENGTH_SHORT).show()
-                } else {
-                    Log.e(TAG, "sendEmailVerification failed!", task.exception)
-                    Toast.makeText(applicationContext, "Failed to send verification email.", Toast.LENGTH_SHORT).show()
-                }
+        val user = mAuth!!.currentUser!!
+        user.sendEmailVerification()
+        .addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(applicationContext, "Verification email sent to " + user.email!!, Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, VerifyEmail::class.java).apply{putExtra(MESSAGE, user.email)}
+                startActivity(intent)
+            } else {
+                Log.e(TAG, "sendEmailVerification failed!", task.exception)
+                Toast.makeText(applicationContext, "Failed to send verification email.", Toast.LENGTH_SHORT).show()
             }
-
-        val intent = Intent(this, VerifyEmail::class.java).apply{putExtra(MESSAGE, user.email)}
-        startActivity(intent)
+        }
     }
 
     private fun validateForm(email: String, password: String): Boolean {
