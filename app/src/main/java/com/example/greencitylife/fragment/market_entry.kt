@@ -20,12 +20,19 @@ import com.bumptech.glide.module.AppGlideModule
 import com.example.greencitylife.R
 import com.example.greencitylife.activity.TAG
 import com.example.greencitylife.activity.myDB
-import com.example.greencitylife.fragment.market_entryArgs
 import com.firebase.ui.storage.images.FirebaseImageLoader
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.io.InputStream
+
+
+val user = FirebaseAuth.getInstance().currentUser
+val myDB = FirebaseFirestore.getInstance()
+val users = myDB.collection("Users")
+val gardens = myDB.collection("Gardens")
 
 
 @GlideModule
@@ -77,7 +84,6 @@ class market_entry : Fragment() {
                 Log.w(TAG, "Error getting documents: ", exception)
             }
 
-
         return view
     }
 
@@ -93,6 +99,7 @@ class market_entry : Fragment() {
         val timestamp = data.data?.get("creationTime") as com.google.firebase.Timestamp
         val date = timestamp.toDate().toString()
         val imageID = data.get("imageID").toString()
+        val userID = data.get("userId").toString()
 
         val typeView = view.findViewById<TextView>(R.id.entry_type)
         val titleView = view.findViewById<TextView>(R.id.entry_title)
@@ -104,6 +111,22 @@ class market_entry : Fragment() {
         titleView.text = title
         descriptionView.text = description
         timeView.text = date
+
+        users.document(userID)
+            .get()
+            .addOnSuccessListener { document ->
+                val userView = view.findViewById<TextView>(R.id.entry_user)
+                val userName = document.get("name").toString()
+                userView.text = userName
+                val gardenID = document.get("gardenId").toString()
+                gardens.document(gardenID)
+                    .get()
+                    .addOnSuccessListener { document ->
+                        val gardenName = document.get("name").toString()
+                        val gardenView = view.findViewById<TextView>(R.id.entry_location)
+                        gardenView.text = gardenName
+                    }
+            }
 
         val url = "https://firebasestorage.googleapis.com/v0/b/greencitylife-ed3b5.appspot.com/o/entry_images%2F0f1099f9-de72-4418-af3a-989b8fc6a4fa?alt=media&token=0b4ba637-59d5-4be8-89d6-0788b48e0f6d"
 

@@ -84,7 +84,7 @@ class market_add : Fragment() {
             // upload image
             uploadPic(imageView, imageName)
             // create entry
-            add_entry(view, imageName)
+            addEntry(view, imageName)
             // after entry has been created --> navigation to entries news page
             it.findNavController().navigate(R.id.market)
         }
@@ -92,7 +92,7 @@ class market_add : Fragment() {
     }
 
 
-    private fun add_entry(view: View, imageName: String) {
+    private fun addEntry(view: View, imageName: String) {
         // get entry data
         val title: String = view.findViewById<EditText>(R.id.entry_title).text.toString()
         val description: String = view.findViewById<EditText>(R.id.entry_description).text.toString()
