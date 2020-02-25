@@ -2,7 +2,6 @@ package com.example.greencitylife.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.greencitylife.Garden
 import com.example.greencitylife.R
@@ -24,6 +23,8 @@ val storage = FirebaseStorage.getInstance()
 val userRef = myDB.collection("Users")
 val gardenRef = myDB.collection("Gardens")
 val entryRef = myDB.collection("Entries")
+val messageRef = myDB.collection("Messages")
+
 private var mAuth: FirebaseAuth? = null
 
 class MainActivity : AppCompatActivity() {
@@ -42,12 +43,12 @@ class MainActivity : AppCompatActivity() {
         updateAuthInfo()
     }
 
-    fun openRegistration(view: View) {
+    fun openRegistration() {
         val intent = Intent(this, Authentication::class.java).apply{}
         startActivity(intent)
     }
 
-    fun dbExamples(view: View) {
+    fun dbExamples() {
         val intent = Intent(this, DbExamples::class.java).apply{}
         startActivity(intent)
     }

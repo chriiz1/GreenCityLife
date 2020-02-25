@@ -148,7 +148,6 @@ class NewGarden : AppCompatActivity(), OnMapReadyCallback {
             uploadPic(imageView, imageName)
             val newId = gardenRef.document().id
             val garden = Garden(
-                id = newId,
                 name = new_garden_et_name.text.toString(),
                 address = new_garden_et_address.text.toString(),
                 lat = latlng!!.latitude,

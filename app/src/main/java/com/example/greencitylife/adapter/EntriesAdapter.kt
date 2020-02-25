@@ -57,9 +57,4 @@ class EntriesAdapter(private val context: Context,
 
         return rowView
     }
-
-
-
-
-
 }

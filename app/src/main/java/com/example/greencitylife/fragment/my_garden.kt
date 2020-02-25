@@ -2,23 +2,14 @@ package com.example.greencitylife.fragment
 
 
 
-import android.Manifest
-import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.greencitylife.Garden
@@ -55,26 +46,26 @@ class mygarden : Fragment(), OnMapReadyCallback {
         val currentUser = mAuth!!.currentUser!!
         userId = currentUser.uid
 
-        val view = inflater.inflate(R.layout.fragment_mygarden, container, false)
+        val view = inflater.inflate(R.layout.fragment_my_garden, container, false)
         gardenView = view
         val garden_name = view.findViewById<TextView>(R.id.my_garden_tv_garden_name)
 
         val mapFrag: SupportMapFragment = childFragmentManager.findFragmentById(R.id.my_garden_map) as SupportMapFragment
         mapFrag.getMapAsync(this)
 
-        userRef.document(userId.toString()).get().addOnSuccessListener { documentSnapshot ->
-            val user = documentSnapshot.toObject(User::class.java)
-            gardenRef.document(user!!.gardenId).get().addOnSuccessListener { documentSnapshot ->
-                val garden = documentSnapshot.toObject(Garden::class.java)
+        userRef.document(userId.toString()).get().addOnSuccessListener { userDoc ->
+            val user = userDoc.toObject(User::class.java)
+            gardenRef.document(user!!.gardenId).get().addOnSuccessListener { gardenDoc ->
+                val garden = gardenDoc.toObject(Garden::class.java)
                 garden_name.text = garden!!.name
                 val edit_garden = view.findViewById<Button>(R.id.my_garden_btn_edit)
 
                 addMapMarker(LatLng(garden.lat,garden.lon), garden.address)
                 edit_garden.setOnClickListener{
-                    val intent = Intent(context, NewGarden::class.java).apply {putExtra(MESSAGE, garden.id)}
+                    val intent = Intent(context, NewGarden::class.java).apply {putExtra(MESSAGE, gardenDoc.id)}
                     startActivity(intent)
                 }
-                loadImage(view, garden.id)
+                loadImage(view, gardenDoc.id)
 
             }
         }
@@ -83,8 +74,8 @@ class mygarden : Fragment(), OnMapReadyCallback {
 
 
     private fun loadImage(view: View, gardenId: String){
-        val title_image = view!!.findViewById<ImageView>(R.id.my_garden_title_image)
-        gardenRef.document(gardenId!!).get().addOnSuccessListener { document ->
+        val title_image = view.findViewById<ImageView>(R.id.my_garden_title_image)
+        gardenRef.document(gardenId).get().addOnSuccessListener { document ->
             if(document != null) {
                 val image = document.get("titleImageID")
                 if (image != null) {
@@ -93,7 +84,7 @@ class mygarden : Fragment(), OnMapReadyCallback {
                     storageRef.child("entry_images/$image").downloadUrl
                         .addOnSuccessListener { uri ->
                             Glide
-                                .with(view!!)
+                                .with(view)
                                 .load(uri)
                                 .centerCrop()
                                 .into(title_image)

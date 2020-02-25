@@ -11,7 +11,6 @@ data class Image(
 )
 
 data class Garden(
-    var id: String = "",
     var name: String = "",
     var address: String = "",
     var titleImageID: String = "",
@@ -39,10 +38,10 @@ data class Entry(
     var creationTime: Timestamp = Timestamp.now()
 )
 
-data class Comment(
+data class Message(
     var text: String = "",
-    var date: Date = Calendar.getInstance().time,
+    var creationTime: Timestamp = Timestamp.now(),
     var userId: String = "",
-    var entryId: String = ""
+    var gardenId: String = ""
 )
 

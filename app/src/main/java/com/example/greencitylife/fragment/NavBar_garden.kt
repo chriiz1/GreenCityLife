@@ -28,13 +28,18 @@ class NavBar_garden : Fragment() {
 
         val home_btn = view.findViewById<ImageButton>(R.id.nav_garden_btn_home)
         val gallery_btn = view.findViewById<ImageButton>(R.id.nav_garden_btn_gallery)
+        val entries_btn = view.findViewById<ImageButton>(R.id.nav_garden_btn_entries)
 
         home_btn.setOnClickListener{
             it.findNavController().navigate(R.id.mygarden)
         }
 
         gallery_btn.setOnClickListener{
-            it.findNavController().navigate(R.id.garden_gallery)
+            it.findNavController().navigate(R.id.my_garden_image_gallery)
+        }
+
+        entries_btn.setOnClickListener{
+            it.findNavController().navigate(R.id.my_garden_entries)
         }
 
         return view

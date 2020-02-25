@@ -44,7 +44,6 @@ class market : Fragment() {
 
         val listView = view.findViewById<ListView>(R.id.entriesListView)
         listView.setOnItemClickListener{parent, view, position, id ->
-
             // get data of entry clicked on
             val entry_data: List<String> = parent.getItemAtPosition(position) as List<String>
             // pass firebase id of entry
