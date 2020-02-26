@@ -41,7 +41,6 @@
             android:text="@string/garden_button_text"
             />
 
-
     </LinearLayout>
 
 </FrameLayout>

@@ -17,14 +17,14 @@ import com.example.greencitylife.helper.ZoomOutPageTransformer
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.image_fullscreen.view.*
 
-class mygarden_image_fullscreen : DialogFragment() {
+class my_garden_image_fullscreen : DialogFragment() {
     private var imageList = ArrayList<Image>()
     private var selectedPosition: Int = 0
     lateinit var tvGalleryTitle: TextView
     lateinit var viewPager: ViewPager
     lateinit var galleryPagerAdapter: GalleryPagerAdapter
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_mygarden_image_fullscreen, container, false)
+        val view = inflater.inflate(R.layout.fragment_my_garden_image_fullscreen, container, false)
         viewPager = view.findViewById(R.id.viewPager)
         tvGalleryTitle = view.findViewById(R.id.tvGalleryTitle)
         galleryPagerAdapter = GalleryPagerAdapter()

@@ -33,7 +33,7 @@ import com.google.firebase.firestore.FieldValue
 import java.util.*
 import kotlin.collections.ArrayList
 
-class garden_image_gallery : Fragment(), GalleryImageClickListener {
+class my_garden_image_gallery : Fragment(), GalleryImageClickListener {
     // gallery column count
     private val SPAN_COUNT = 3
     private val imageList = ArrayList<Image>()
@@ -52,7 +52,7 @@ class garden_image_gallery : Fragment(), GalleryImageClickListener {
 
         galleryAdapter = GalleryImageAdapter(imageList)
         galleryAdapter.listener = this
-        val view = inflater.inflate(R.layout.fragment_mygarden_image_gallery, container, false)
+        val view = inflater.inflate(R.layout.fragment_my_garden_image_gallery, container, false)
 
         // init recyclerview
         val recyclerview = view.findViewById<RecyclerView>(R.id.recyclerView)
@@ -178,7 +178,7 @@ class garden_image_gallery : Fragment(), GalleryImageClickListener {
         bundle.putSerializable("images", imageList)
         bundle.putInt("position", position)
         val fragmentTransaction = fragmentManager!!.beginTransaction()
-        val galleryFragment = mygarden_image_fullscreen()
+        val galleryFragment = my_garden_image_fullscreen()
         galleryFragment.setArguments(bundle)
         galleryFragment.show(fragmentTransaction, "gallery")
     }
@@ -194,9 +194,8 @@ class garden_image_gallery : Fragment(), GalleryImageClickListener {
 
     //handle requested permission result
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-
         when(requestCode){
-            garden_image_gallery.PERMISSION_CODE -> {
+            my_garden_image_gallery.PERMISSION_CODE -> {
                 if (grantResults.size > 0 && grantResults[0] ==
                     PackageManager.PERMISSION_GRANTED){
                     //permission from popup granted

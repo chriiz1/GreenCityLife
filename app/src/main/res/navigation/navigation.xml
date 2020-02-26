@@ -23,7 +23,7 @@
         android:id="@+id/mygarden"
         android:name="com.example.greencitylife.fragment.mygarden"
         android:label="fragment_mygarden"
-        tools:layout="@layout/fragment_mygarden" />
+        tools:layout="@layout/fragment_my_garden" />
     <fragment
         android:id="@+id/market_search"
         android:name="com.example.greencitylife.fragment.market_search"
@@ -44,9 +44,17 @@
             app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/garden_gallery"
-        android:name="com.example.greencitylife.fragment.garden_image_gallery"
-        android:label="fragment_garden_image_gallery"
-        tools:layout="@layout/fragment_mygarden_image_gallery" />
+        android:id="@+id/my_garden_image_gallery"
+        android:name="com.example.greencitylife.fragment.my_garden_image_gallery"
+        android:label="fragment_my_garden_image_gallery"
+        tools:layout="@layout/fragment_my_garden_image_gallery" />
+    <fragment
+        android:id="@+id/my_garden_entries"
+        android:name="com.example.greencitylife.fragment.my_garden_entries"
+        android:label="fragment_my_garden_entries"
+        tools:layout="@layout/fragment_my_garden_entries" />
+        <action
+            android:id="@+id/action_market_to_market_entry"
+            app:destination="@id/market_entry" />
 
 </navigation>
