@@ -64,6 +64,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:5.0.0'
     implementation 'com.twitter.sdk.android:twitter-core:3.3.0'
     implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.maps.android:android-maps-utils:0.5+'
     //Picasso
     def picassoVersion = "2.71828"
     implementation "com.squareup.picasso:picasso:$picassoVersion"

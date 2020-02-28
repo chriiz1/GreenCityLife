@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import com.example.greencitylife.R
 
 
 class EntriesAdapter(private val context: Context,
@@ -41,13 +40,13 @@ class EntriesAdapter(private val context: Context,
     //4
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         // Get view for row item
-        val rowView = inflater.inflate(R.layout.custom_list, parent, false)
+        val rowView = inflater.inflate(com.example.greencitylife.R.layout.custom_list, parent, false)
         // Get title element
-        val titleTextView = rowView.findViewById(R.id.title) as TextView
+        val titleTextView = rowView.findViewById(com.example.greencitylife.R.id.title) as TextView
         // Get subtitle element
-        val subtitleTextView = rowView.findViewById(R.id.entry_description) as TextView
+        val subtitleTextView = rowView.findViewById(com.example.greencitylife.R.id.entry_description) as TextView
         // Get time element
-        val timeTextView = rowView.findViewById<TextView>(R.id.time) as TextView
+        val timeTextView = rowView.findViewById<TextView>(com.example.greencitylife.R.id.time) as TextView
 
         // get and set data
         val entry = getItem(position)
@@ -58,3 +57,4 @@ class EntriesAdapter(private val context: Context,
         return rowView
     }
 }
+

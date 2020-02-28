@@ -21,9 +21,9 @@ import com.example.greencitylife.Entry
 import com.example.greencitylife.R
 import com.example.greencitylife.activity.entryRef
 import com.example.greencitylife.activity.storage
-import com.example.greencitylife.getCurrentUserID
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.fragment_market_add.*
 import java.io.ByteArrayOutputStream
@@ -102,17 +102,31 @@ class market_add : Fragment() {
         // get type selection
         val type: String = if (radioGroup.checkedRadioButtonId == R.id.offer__radio_button) "offer" else "search"
 
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val cUserId = currentUser?.uid
+
         // create entry
         val entry = Entry(
             title = title,
-            userId = getCurrentUserID(),
+            userId = cUserId.toString(),
             additionalText = description,
             category = category,
             type = type,
             imageID = imageName
         )
-        // write entry to database
-        entryRef.document().set(entry)
+
+
+        // add gardenId to entry and write entry to database
+        myDB.collection("Users")
+            .document(cUserId.toString())
+            .get()
+            .addOnSuccessListener {document ->
+                val gardenId = document.get("gardenId").toString()
+                entry.gardenId = gardenId
+                entryRef.document().set(entry)
+            }
+
         // make notification that entry has been created
         Toast.makeText(requireContext(), "Entry has been created", Toast.LENGTH_SHORT).show()
     }

@@ -9,9 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.greencitylife.R
 import com.example.greencitylife.activity.TAG
 import com.example.greencitylife.activity.myDB
@@ -24,6 +26,8 @@ import java.text.SimpleDateFormat
  * A simple [Fragment] subclass.
  */
 class market : Fragment() {
+
+    val args: marketArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,8 +47,23 @@ class market : Fragment() {
             it.findNavController().navigate(R.id.market_add)
         }
 
-        // display all entries
-        displayEntries(view, orderByParameter = null, typeParameter = null, categoryParameter = ArrayList())
+
+        if (args.gardenIdList != null) {
+            val gardenList = args.gardenIdList
+            displayEntries(view,
+                orderByParameter = null,
+                typeParameter = null,
+                categoryParameter = ArrayList(),
+                gardensList = gardenList)
+        } else {
+            // display all entries
+            displayEntries(view,
+                orderByParameter = null,
+                typeParameter = null,
+                categoryParameter = arrayListOf("Knowledge", "Goods", "Practical help"),
+                gardensList = null)
+        }
+
 
         // get buttons needed for expansion and collapse of search parameters layout
         val market_buttons = view.findViewById<ConstraintLayout>(R.id.market_buttons)
@@ -76,8 +95,20 @@ class market : Fragment() {
         // if mapButton pressed, navigate to Map; show only selected results
         val mapButton = view.findViewById<FloatingActionButton>(R.id.map_button)
         mapButton.setOnClickListener{
-            // TODO: tell map fragment which entries to display
-            it.findNavController().navigate(R.id.community)
+            val entriesList: MutableList<String>? = mutableListOf()
+            val listView = view.findViewById<ListView>(R.id.entriesListView)
+            for (position in 0 until listView.size) {
+                val entryData = listView.getItemAtPosition(position) as List<String>
+                val entryId = entryData[0]
+                entriesList?.add(entryId)
+            }
+
+            Toast.makeText(context, entriesList?.size.toString(), Toast.LENGTH_LONG).show()
+
+            val action = marketDirections.actionMarketToCommunity(entryList = entriesList?.toTypedArray())
+            it.findNavController().navigate(action)
+
+
         }
 
         // get to specific entry when clicked on entry
@@ -92,14 +123,19 @@ class market : Fragment() {
                 )
             findNavController().navigate(action)
         }
+
+
         return view
     }
 
 
     // function for retrieving data from firestore and display them in ListView
-    private fun displayEntries (view: View, orderByParameter: String?, typeParameter: String?, categoryParameter: ArrayList<String>) {
+    private fun displayEntries (view: View, orderByParameter: String?,
+                                typeParameter: String?,
+                                categoryParameter: ArrayList<String>,
+                                gardensList: Array<String>?) {
         // createQuery creates query object
-        createQuery(orderByParameter, typeParameter, categoryParameter)
+        createQuery(orderByParameter, typeParameter, categoryParameter, gardensList)
             .get()
             .addOnSuccessListener { documents ->
                 val titleList: MutableList<String> = ArrayList()
@@ -145,22 +181,35 @@ class market : Fragment() {
     }
 
     // creates query object for data retrieval from firestore
-    private fun createQuery(orderByParameter: String?, typeParameter: String?, categoryParameter: ArrayList<String>): Query {
+    private fun createQuery(orderByParameter: String?,
+                            typeParameter: String?,
+                            categoryParameter: ArrayList<String>,
+                            gardensList: Array<String>?): Query {
 
         // if non category is selected
         if (categoryParameter.isEmpty()) {
             categoryParameter.add("Nothing")
         }
 
+
+        val entryRef = myDB.collection("Entries")
+
+        // case: from community app --> entries of certain gardens are shown
+        if (gardensList != null) {
+            val query = entryRef
+                .whereIn("gardenId", gardensList.toMutableList())
+                 .orderBy("creationTime", Query.Direction.ASCENDING)
+            return query
+
             // case: all entries are shown ordered by time; initial state
-        if (orderByParameter == null) {
-            val query = myDB.collection("Entries")
+        } else if (orderByParameter == null)  {
+            val query = entryRef
                 .orderBy("creationTime", Query.Direction.ASCENDING)
             return query
 
             //  case: ordered by time + additional parameters
         } else if (orderByParameter == "time") {
-            val query = myDB.collection("Entries")
+            val query = entryRef
                 .whereEqualTo("type", typeParameter)
                 .whereIn("category", categoryParameter)
                 .orderBy("creationTime", Query.Direction.DESCENDING)
@@ -169,7 +218,7 @@ class market : Fragment() {
             // ordered by distance
         } else if (orderByParameter == "distance") {
             // TODO: add order by distance
-            val query = myDB.collection("Entries")
+            val query = entryRef
                 .whereEqualTo("type", typeParameter)
                 .whereIn("category", categoryParameter)
                 .orderBy("creationTime", Query.Direction.ASCENDING)
@@ -178,10 +227,7 @@ class market : Fragment() {
             // case: invalid query: all entries are shown
             // For development purposes
         } else {
-            Toast.makeText(context, "Not a valid query", Toast.LENGTH_LONG).show()
-            val query = myDB.collection("Entries")
-                .orderBy("creationTime", Query.Direction.ASCENDING)
-            return query
+            return entryRef
         }
     }
 
@@ -208,7 +254,7 @@ class market : Fragment() {
         if (rbPracticalHelp.isChecked) lsCategories.add("Practical help")
 
         // call displayEntries with search parameters
-        displayEntries(view, orderByParameter = orderByParameter, typeParameter = typeParameter, categoryParameter = lsCategories)
+        displayEntries(view, orderByParameter = orderByParameter, typeParameter = typeParameter, categoryParameter = lsCategories, gardensList = null)
         }
 }
 

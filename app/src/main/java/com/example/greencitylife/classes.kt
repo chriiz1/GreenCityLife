@@ -1,7 +1,6 @@
 package com.example.greencitylife
 
 import com.google.firebase.Timestamp
-import java.util.*
 
 
 data class Image(

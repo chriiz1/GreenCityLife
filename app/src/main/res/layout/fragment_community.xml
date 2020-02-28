@@ -22,14 +22,28 @@
             android:layout_height="match_parent"
             tools:layout_editor_absoluteY="19dp">
 
+            <!--
             <fragment
-                android:id="@+id/fragment5"
-                android:name="com.example.greencitylife.fragment.MapFragment"
+                android:id="@+id/mapGardens"
+                android:name="com.example.greencitylife.fragment.MapGardens"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:layout_editor_absoluteY="61dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+                -->
+
+            <fragment
+                android:id="@+id/mapGardens"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/add_entry_button"
@@ -42,8 +56,24 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.954"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/fragment5"
+                app:layout_constraintTop_toTopOf="@+id/mapGardens"
                 app:layout_constraintVertical_bias="0.879" />
+
+            <Button
+                android:id="@+id/b_gardens"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gardens"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/b_entries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entries"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/b_gardens" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
